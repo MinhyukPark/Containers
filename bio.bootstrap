@@ -1,0 +1,201 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%environment
+    TZ=America/Chicago
+    DEBIAN_FRONTEND=noninteractive
+    export TZ DEBIAN_FRONTEND
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%post
+    # set the time
+    ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime
+
+    # update first always
+    apt-get -y update
+    # and then software-properties-common mostly because of add ppa
+    apt-get install -y software-properties-common
+
+    # build tools
+    apt-get install -y build-essential
+    apt-get install -y gcc-8
+    apt-get install -y g++-8
+    # swap gcc and g++
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+    apt-get install -y cmake
+    apt-get install -y gdb
+    apt-get install -y tar
+    apt-get install -y wget
+    apt-get install -y git
+    apt-get install -y default-jre
+    apt-get install -y default-jdk
+
+    # CRAN repo
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+    add-apt-repository -y 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/'
+    apt-get -y update
+    apt-get install -y r-base
+    echo "install.packages(\"sirt\", repos=\"https://cran.rstudio.com\")" | R --no-save
+
+    # python packages
+    apt-get install -y python-pip
+    apt-get install -y python-tk
+    apt-get install -y libpython2.7
+
+    apt-get install -y python3
+    apt-get install -y python3-tk
+    apt-get install -y python3-venv python3-pip
+
+    pip install virtualenv
+    pip3 install virtualenv
+
+    pip install click
+    pip3 install click
+
+    pip install matplotlib
+    pip3 install matplotlib
+
+    pip install numpy
+    pip3 install numpy
+
+    pip install dendropy
+    pip3 install dendropy
+
+    # biopython requires python 3.6 or later so pyvolve cannot be installed here
+    pip3 install pyvolve # sequence evolution simulator
+
+    # simulators
+    ## indelible
+    apt-get install -y indelible
+    ## simphy
+    mkdir /opt/simphy
+    cd /opt/simphy
+    wget "https://github.com/adamallo/SimPhy/releases/download/v1.0.2/SimPhy_1.0.2.tar.gz"
+    tar -xzf ./SimPhy_1.0.2.tar.gz
+    chmod +x ./SimPhy_1.0.2/bin/simphy_lnx64
+    ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy
+
+    # Sequnece Alignment
+    apt-get install -y mafft
+
+    # tree inference
+    apt-get install -y phyml raxml iqtree fasttree
+    ## PAUP*
+    mkdir /opt/paup
+    cd /opt/paup
+    wget "http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz"
+    gunzip ./paup4a168_ubuntu64.gz
+    chmod +x ./paup4a168_ubuntu64
+    ln -s /opt/paup/paup4a168_ubuntu64 /usr/bin/paup
+    ## ASTRID
+    mkdir /opt/astrid
+    cd /opt/astrid
+    wget "https://github.com/pranjalv123/ASTRID-1/releases/download/v1.4/ASTRID-linux"
+    chmod +x ./ASTRID-linux
+    ln -s /opt/astrid/ASTRID-linux /usr/bin/astrid
+    ## RAxML-ng
+    mkdir /opt/raxmlng
+    cd /opt/raxmlng
+    wget "https://github.com/amkozlov/raxml-ng/releases/download/1.0.1/raxml-ng_v1.0.1_linux_x86_64.zip"
+    unzip ./raxml-ng_v1.0.1_linux_x86_64.zip
+    ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng
+
+    # Disjoint Tree Mergers
+    ## TreeMerge
+    cd /opt/
+    git clone "https://github.com/ekmolloy/treemerge.git"
+    cd /opt/treemerge
+    python -m virtualenv --system-site-packages env
+    . env/bin/activate
+    pip install 'networkx==1.11'
+    pip install 'dendropy==4.3.0'
+    deactivate
+
+    # tree comparison
+    ## Erin's tools from NJMerge
+    mkdir /opt/erin_tools
+    cd /opt/erin_tools
+    wget "https://databank.illinois.edu/datafiles/ice5b/download"
+    unzip download
+    rm download
+    rm -r __MACOSX
+    mv tools/* ./
+    rm -r tools
+
+    ## Siavash's tools from statistical binning
+    cd /opt/
+    git clone "https://github.com/smirarab/binning.git"
+    cd binning
+    python -m virtualenv --system-site-packages env
+    . env/bin/activate
+    pip install 'dendropy==3.12.2'
+    deactivate
+
+%test
+    echo "Testing Packages"
+
+    echo -n "MAFFT was installed to: "
+    which mafft || echo "ERROR: Please check the installation for MAFFT"
+
+    echo -n "RAxML was installed to: "
+    which raxmlHPC || echo "ERROR: Please check the installation for RAxML"
+
+    echo -n "PhyML was installed to: "
+    which phyml || echo "ERROR: Please check the installation for PhyML"
+
+    echo -n "IQTree was installed to: "
+    which iqtree || echo "ERROR: Please check the installation for IQTree"
+
+    echo -n "FastTree was installed to: "
+    which fasttree || echo "ERROR: Please check the installation for FastTree"
+
+    echo -n "SimPhy was installed to: "
+    which simphy || echo "ERROR: Please check the installation for SimPhy"
+
+    echo -n "PAUP* was installed to: "
+    which paup || echo "ERROR: Please check the installation for PAUP*"
+
+    echo -n "ASTRID was installed to: "
+    which astrid || echo "ERROR: Please check the installation for ASTRID"
+
+    echo -n "RAxML-ng was installed to: "
+    which raxmlng || echo "ERROR: Please check the installation for RAxML-ng"
+
+    echo -n "INDELible was installed to: "
+    which indelible || echo "ERROR: Please check the installation for INDELible"
+
+    echo -n "TreeMerge was installed to: "
+    (test -f /opt/treemerge/python/treemerge.py && echo "/opt/treemerge/python/treemerge.py" )|| echo "ERROR: Please check the installation for TreeMerge"
+
+    echo -n "Statistical Binning was installed to: "
+    (test -f /opt/binning/remove_edges_from_tree.py && echo "/opt/binning" )|| echo "ERROR: Please check the installation for Statistical Binning"
+
+    echo -n "Erin's Tools were installed to: "
+    (test -f /opt/erin_tools/compare_trees.py && echo "/opt/erin_tools/compare_trees.py" )|| echo "ERROR: Please check the installation for Erin's Tools"
+
+    echo -n "Checking Java version: "
+    java -version || echo "ERROR: Please check the installation for Default Java Runtime"
+    javac -version || echo "ERROR: Please check the installation for OpenJDK"
+
+    echo -n "Checking Python version: "
+    python --version || echo "ERROR: Please check the installation for Python 2"
+    python3 --version || echo "ERROR: Please check the installation for Python 3"
+
+    echo -n "Checking Pyvolve: "
+    (python3 -c "import pyvolve" && echo "\n") || echo "ERROR: Please check the installation for pyvolve in python 3"
+
+    echo -n "Checking Numpy: "
+    (python -c "import numpy" && echo "") || echo "ERROR: Please check the installation for numpy in python 2"
+    (python3 -c "import numpy" && echo "") || echo "ERROR: Please check the installation for numpy in python 3"
+
+    echo -n "Checking Dendropy: "
+    (python -c "import dendropy" && echo "") || echo "ERROR: Please check the installation for dendropy in python 2"
+    (python3 -c "import dendropy" && echo "") || echo "ERROR: Please check the installation for dendropy in python 3"
+
+    echo -n "Checking Click: "
+    (python -c "import click" && echo "") || echo "ERROR: Please check the installation for click in python 2"
+    (python3 -c "import click" && echo "") || echo "ERROR: Please check the installation for click in python 3"
+
+%labels
+    Author MinhyukPark
