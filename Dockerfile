@@ -19,14 +19,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y wget \
  && apt-get install -y git \
  && apt-get install -y default-jre \
- && apt-get install -y default-jdk \
-
-# R packages
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
- && add-apt-repository -y 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/' \
- && apt-get -y update \
- && apt-get install -y r-base \
- && echo "install.packages(\"sirt\", repos=\"https://cran.rstudio.com\")" | R --no-save \
+ && apt-get install -y default-jdk
 
 # system wide python packages
 RUN apt-get install -y python-pip \
@@ -45,7 +38,7 @@ RUN apt-get install -y python-pip \
  && pip3 install numpy \
  && pip install dendropy \
  && pip3 install dendropy \
- && pip3 install pyvolve \
+ && pip3 install pyvolve
 
 # Simulators
 RUN apt-get install -y indelible \
@@ -54,10 +47,10 @@ RUN apt-get install -y indelible \
  && wget "https://github.com/adamallo/SimPhy/releases/download/v1.0.2/SimPhy_1.0.2.tar.gz" \
  && tar -xzf ./SimPhy_1.0.2.tar.gz \
  && chmod +x ./SimPhy_1.0.2/bin/simphy_lnx64 \
- && ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy \
+ && ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy
 
 # Sequence Alignment
-RUN apt-get install -y mafft \
+RUN apt-get install -y mafft
 
 # Tree Inference
 RUN apt-get install -y phyml raxml iqtree fasttree \
@@ -76,7 +69,7 @@ RUN apt-get install -y phyml raxml iqtree fasttree \
  && cd /opt/raxmlng \
  && wget "https://github.com/amkozlov/raxml-ng/releases/download/1.0.1/raxml-ng_v1.0.1_linux_x86_64.zip" \
  && unzip ./raxml-ng_v1.0.1_linux_x86_64.zip \
- && ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng \
+ && ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng
 
 # Tree Mergers
 RUN cd /opt/ \
@@ -86,7 +79,7 @@ RUN cd /opt/ \
  && . env/bin/activate \
  && pip install 'networkx==1.11' \
  && pip install 'dendropy==4.3.0' \
- && deactivate \
+ && deactivate
 
 # Tree Comparison
 RUN mkdir /opt/erin_tools \
@@ -103,4 +96,4 @@ RUN mkdir /opt/erin_tools \
  && python -m virtualenv --system-site-packages env \
  && . env/bin/activate \
  && pip install 'dendropy==3.12.2' \
- && deactivate \
+ && deactivate
