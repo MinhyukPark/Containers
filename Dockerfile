@@ -28,7 +28,7 @@ RUN apt-get install -y python-pip \
  && pip install virtualenv \
  && pip3 install virtualenv \
  && pip install click \
- && pip3 install click \
+ && pip3 install click
 
 # Simulators
 RUN apt-get install -y indelible \
