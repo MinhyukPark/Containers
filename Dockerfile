@@ -29,13 +29,6 @@ RUN apt-get install -y python-pip \
  && pip3 install virtualenv \
  && pip install click \
  && pip3 install click \
- && pip install matplotlib \
- && pip3 install matplotlib \
- && pip install numpy \
- && pip3 install numpy \
- && pip install dendropy \
- && pip3 install dendropy \
- && pip3 install pyvolve
 
 # Simulators
 RUN apt-get install -y indelible \
