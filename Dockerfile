@@ -10,9 +10,6 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get -y update \
  && apt-get install -y software-properties-common \
  && apt-get install -y build-essential \
- && apt-get install -y gcc-8 \
- && apt-get install -y g++-8 \
- && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8 \
  && apt-get install -y cmake \
  && apt-get install -y gdb \
  && apt-get install -y tar \
