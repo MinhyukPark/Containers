@@ -25,9 +25,7 @@ RUN apt-get install -y python-pip \
  && apt-get install -y python3 \
  && apt-get install -y python3-tk \
  && apt-get install -y python3-venv python3-pip \
-
-# pip upgrades
-RUN pip install --upgrade pip \
+ && pip install --upgrade pip \
  && pip3 install --upgrade pip \
  && pip install virtualenv \
  && pip3 install virtualenv \
