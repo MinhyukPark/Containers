@@ -46,12 +46,15 @@ From: ubuntu:18.04
     apt-get install -y python3
     apt-get install -y python3-tk
     apt-get install -y python3-venv python3-pip
+    apt-get install -y python3-sphinx
 
     pip install virtualenv
     pip3 install virtualenv
 
     pip install click
     pip3 install click
+
+    pip3 install sphinx-click
 
     pip install matplotlib
     pip3 install matplotlib

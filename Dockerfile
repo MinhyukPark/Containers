@@ -45,7 +45,7 @@ RUN apt-get install -y indelible \
 RUN apt-get install -y mafft
 
 # Tree Inference
-RUN apt-get install -y phyml raxml iqtree fasttree \
+RUN apt-get install -y phyml raxml fasttree \
  && mkdir /opt/paup \
  && cd /opt/paup \
  && wget "http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz" \
@@ -61,7 +61,12 @@ RUN apt-get install -y phyml raxml iqtree fasttree \
  && cd /opt/raxmlng \
  && wget "https://github.com/amkozlov/raxml-ng/releases/download/1.0.1/raxml-ng_v1.0.1_linux_x86_64.zip" \
  && unzip ./raxml-ng_v1.0.1_linux_x86_64.zip \
- && ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng
+ && ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng \
+ && mkdir /opt/iqtree \
+ && cd /opt/iqtree \
+ && wget "https://github.com/Cibiv/IQ-TREE/releases/download/v1.6.12/iqtree-1.6.12-Linux.tar.gz" \
+ && tar -xzf ./iqtree-1.6.12-Linux.tar.gz \
+ && ln -s /opt/iqtree/iqtree-1.6.12-Linux/bin/iqtree /usr/bin/iqtree
 
 # Tree Mergers
 RUN cd /opt/ \
