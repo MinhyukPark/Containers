@@ -32,6 +32,12 @@ RUN apt-get install -y python-pip \
  && pip install click \
  && pip3 install click
 
+RUN cd /u/sciteam/minhyuk2/git_repos/QuickScripts/ \
+ && python -m virtualenv --system-site-packages env \
+ && . env/bin/activate \
+ && pip install dendropy \
+ && deactivate
+
 # Simulators
 RUN apt-get install -y indelible \
  && mkdir /opt/simphy \

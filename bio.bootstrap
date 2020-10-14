@@ -30,6 +30,7 @@ From: ubuntu:18.04
     apt-get install -y git
     apt-get install -y default-jre
     apt-get install -y default-jdk
+    apt-get clean
 
     # CRAN repo
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
@@ -37,6 +38,7 @@ From: ubuntu:18.04
     apt-get -y update
     apt-get install -y r-base
     echo "install.packages(\"sirt\", repos=\"https://cran.rstudio.com\")" | R --no-save
+    apt-get clean
 
     # python packages
     apt-get install -y python-pip
@@ -47,6 +49,7 @@ From: ubuntu:18.04
     apt-get install -y python3-tk
     apt-get install -y python3-venv python3-pip
     apt-get install -y python3-sphinx
+    apt-get clean
 
     pip install virtualenv
     pip3 install virtualenv
@@ -56,17 +59,15 @@ From: ubuntu:18.04
 
     pip3 install sphinx-click
 
-    pip install matplotlib
-    pip3 install matplotlib
-
-    pip install numpy
-    pip3 install numpy
-
+    cd /home/minhyuk2/git_repos/QuickScripts/
+    python -m virtualenv --system-site-packages env
+    . env/bin/activate
     pip install dendropy
-    pip3 install dendropy
-
-    # biopython requires python 3.6 or later so pyvolve cannot be installed here
-    pip3 install pyvolve # sequence evolution simulator
+    pip install matplotlib
+    pip install numpy
+    pip install treeswift
+    pip install pyvolve # sequence evolution simulator
+    deactivate
 
     # simulators
     ## indelible
@@ -81,6 +82,7 @@ From: ubuntu:18.04
 
     # Sequnece Alignment
     apt-get install -y mafft
+    apt-get clean
 
     # tree inference
     apt-get install -y phyml raxml iqtree fasttree
@@ -103,6 +105,7 @@ From: ubuntu:18.04
     wget "https://github.com/amkozlov/raxml-ng/releases/download/1.0.1/raxml-ng_v1.0.1_linux_x86_64.zip"
     unzip ./raxml-ng_v1.0.1_linux_x86_64.zip
     ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng
+    apt-get clean
 
     # Disjoint Tree Mergers
     ## TreeMerge
