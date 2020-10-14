@@ -16,11 +16,12 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y wget \
  && apt-get install -y git \
  && apt-get install -y default-jre \
- && apt-get install -y default-jdk \
- && add-apt-repository ppa:deadsnakes/ppa
+ && apt-get install -y default-jdk
 
 # system wide python packages
-RUN apt-get install -y python-pip \
+RUN add-apt-repository ppa:deadsnakes/ppa \
+ && apt-get -y update \
+ && apt-get install -y python-pip \
  && apt-get install -y python-tk \
  && apt-get install -y libpython2.7 \
  && apt-get install -y python3.6 \
