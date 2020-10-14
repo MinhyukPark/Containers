@@ -26,7 +26,8 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y libpython2.7 \
  && apt-get install -y python3.6 \
  && apt-get install -y python3.6-tk \
- && apt-get install -y python3.6-venv python3.6-pip \
+ && apt-get install -y python3.6-venv \
+ && curl https://bootstrap.pypa.io/get-pip.py | python3.6 \
  && pip install --upgrade pip \
  && pip3 install --upgrade pip \
  && pip install virtualenv \
