@@ -17,7 +17,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y git \
  && apt-get install -y default-jre \
  && apt-get install -y default-jdk \
- && add-apt-repository -y ppa:deadsnakes/ppa
+ && add-apt-repository ppa:deadsnakes/ppa
 
 # system wide python packages
 RUN apt-get install -y python-pip \
