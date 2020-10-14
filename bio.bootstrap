@@ -59,9 +59,9 @@ From: ubuntu:18.04
 
     pip3 install sphinx-click
 
-    mkdir /opt/QuickScripts
-    cd /opt/QuickScripts/
+    cd /opt/
     git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git"
+    cd /opt/QuickScripts
     python3 -m venv --system-site-packages env
     . env/bin/activate
     pip3 install dendropy
