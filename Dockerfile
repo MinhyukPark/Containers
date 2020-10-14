@@ -25,6 +25,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python-tk \
  && apt-get install -y libpython2.7 \
  && apt-get install -y python3.6 \
+ && apt-get install -y python3-pip \
  && apt-get install -y python3.6-tk \
  && apt-get install -y python3.6-venv \
  && python -m pip install --upgrade pip \
