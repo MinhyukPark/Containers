@@ -27,23 +27,22 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python3.6 \
  && apt-get install -y python3.6-tk \
  && apt-get install -y python3.6-venv \
- && curl https://bootstrap.pypa.io/get-pip.py | python3.6 \
- && pip install --upgrade pip \
- && pip3 install --upgrade pip \
- && pip install virtualenv \
- && pip3 install virtualenv \
- && pip install click \
- && pip3 install click
+ && python -m pip install --upgrade pip \
+ && python3.6 -m pip install --upgrade pip \
+ && python -m pip install virtualenv \
+ && python3.6 -m pip install virtualenv \
+ && python -m pip install click \
+ && python3.6 -m pip install click
 
 RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && cd /opt/QuickScripts \
  && python3 -m venv --system-site-packages env \
  && . env/bin/activate \
- && pip3 install dendropy \
- && pip3 install numpy \
- && pip3 install treeswift \
- && pip3 install pyvolve \
+ && python3.6 -m pip install dendropy \
+ && python3.6 -m pip install numpy \
+ && python3.6 -m pip install treeswift \
+ && python3.6 -m pip install pyvolve \
  && deactivate
 
 # Simulators
@@ -88,8 +87,8 @@ RUN cd /opt/ \
  && cd /opt/treemerge \
  && python -m virtualenv --system-site-packages env \
  && . env/bin/activate \
- && pip install 'networkx==1.11' \
- && pip install 'dendropy==4.3.0' \
+ && python -m pip install 'networkx==1.11' \
+ && python -m pip install 'dendropy==4.3.0' \
  && deactivate
 
 # Tree Comparison
@@ -106,5 +105,5 @@ RUN mkdir /opt/erin_tools \
  && cd binning \
  && python -m virtualenv --system-site-packages env \
  && . env/bin/activate \
- && pip install 'dendropy==3.12.2' \
+ && python -m pip install 'dendropy==3.12.2' \
  && deactivate
