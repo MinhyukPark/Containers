@@ -33,9 +33,12 @@ RUN apt-get install -y python-pip \
  && pip3 install click
 
 RUN cd /u/sciteam/minhyuk2/git_repos/QuickScripts/ \
- && python -m virtualenv --system-site-packages env \
+ && python3 -m venv --system-site-packages env \
  && . env/bin/activate \
- && pip install dendropy \
+ && pip3 install dendropy \
+ && pip3 install numpy \
+ && pip3 install treeswift \
+ && pip3 install pyvolve \
  && deactivate
 
 # Simulators
