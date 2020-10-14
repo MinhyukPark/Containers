@@ -32,7 +32,9 @@ RUN apt-get install -y python-pip \
  && pip install click \
  && pip3 install click
 
-RUN cd /u/sciteam/minhyuk2/git_repos/QuickScripts/ \
+RUN mkdir /opt/QuickScripts \
+ && cd /opt/QuickScripts/ \
+ && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && python3 -m venv --system-site-packages env \
  && . env/bin/activate \
  && pip3 install dendropy \
