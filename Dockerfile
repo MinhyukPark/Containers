@@ -38,7 +38,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
 RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && cd /opt/QuickScripts \
- && python3 -m venv --system-site-packages env \
+ && python3.6 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.6 -m pip install dendropy \
  && python3.6 -m pip install numpy \
