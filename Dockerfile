@@ -19,26 +19,21 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y default-jre \
  && apt-get install -y default-jdk
 
-RUN apt-get install -y locales \
- && update-locale LANG=C.UTF-8 \
- && update-locale LC_ALL=C.UTF-8 \
- && update-locale LANGUAGE=C.UTF-8 \
- && dpkg-reconfigure locales \
- && add-apt-repository ppa:deadsnakes/ppa \
+RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
  && apt-get install -y python-pip \
  && apt-get install -y python-tk \
  && apt-get install -y libpython2.7 \
- && apt-get install -y python3.6 \
+ && apt-get install -y python3.8 \
  && apt-get install -y python3-pip \
- && apt-get install -y python3.6-tk \
- && apt-get install -y python3.6-venv \
+ && apt-get install -y python3.8-tk \
+ && apt-get install -y python3.8-venv \
  && python -m pip install --upgrade pip \
- && python3.6 -m pip install --upgrade pip \
+ && python3.8 -m pip install --upgrade pip \
  && python -m pip install virtualenv \
- && python3.6 -m pip install virtualenv \
+ && python3.8 -m pip install virtualenv \
  && python -m pip install click \
- && python3.6 -m pip install click
+ && python3.8 -m pip install click
 
 RUN apt-get install -y locales \
  && update-locale LANG=C.UTF-8 \
@@ -48,12 +43,12 @@ RUN apt-get install -y locales \
  && cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && cd /opt/QuickScripts \
- && LANG=C.UTF-8 LC_ALL=C.UTF-8 LANGUAGE=C.UTF-8 python3.6 -m venv --system-site-packages env \
+ && python3.8 -m venv --system-site-packages env \
  && . env/bin/activate \
- && python3.6 -m pip install dendropy \
- && python3.6 -m pip install numpy \
- && python3.6 -m pip install treeswift \
- && python3.6 -m pip install pyvolve \
+ && python3.8 -m pip install dendropy \
+ && python3.8 -m pip install numpy \
+ && python3.8 -m pip install treeswift \
+ && python3.8 -m pip install pyvolve \
  && deactivate
 
 # Simulators
