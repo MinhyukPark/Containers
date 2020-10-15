@@ -25,27 +25,27 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python-pip \
  && apt-get install -y python-tk \
  && apt-get install -y libpython2.7 \
- && apt-get install -y python3.8 \
+ && apt-get install -y python3.7 \
  && apt-get install -y python3-pip \
- && apt-get install -y python3.8-tk \
- && apt-get install -y python3.8-venv \
+ && apt-get install -y python3.7-tk \
+ && apt-get install -y python3.7-venv \
  && python -m pip install --upgrade pip \
- && python3.8 -m pip install --upgrade pip \
+ && python3.7 -m pip install --upgrade pip \
  && python -m pip install virtualenv \
- && python3.8 -m pip install virtualenv \
+ && python3.7 -m pip install virtualenv \
  && python -m pip install click \
- && python3.8 -m pip install click
+ && python3.7 -m pip install click
 
 # quick scripts
 RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && cd /opt/QuickScripts \
- && python3.8 -m venv --system-site-packages env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && python3.8 -m pip install dendropy \
- && python3.8 -m pip install numpy \
- && python3.8 -m pip install treeswift \
- && python3.8 -m pip install pyvolve \
+ && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install numpy \
+ && python3.7 -m pip install treeswift \
+ && python3.7 -m pip install pyvolve \
  && deactivate
 
 # Simulators
