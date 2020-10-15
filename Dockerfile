@@ -35,12 +35,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && python -m pip install click \
  && python3.8 -m pip install click
 
-RUN apt-get install -y locales \
- && update-locale LANG=C.UTF-8 \
- && update-locale LC_ALL=C.UTF-8 \
- && update-locale LANGUAGE=C.UTF-8 \
- && dpkg-reconfigure locales \
- && cd /opt/ \
+RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && cd /opt/QuickScripts \
  && python3.8 -m venv --system-site-packages env \
