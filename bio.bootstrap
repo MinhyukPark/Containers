@@ -118,6 +118,7 @@ From: ubuntu:18.04
     . env/bin/activate
     pip install 'networkx==1.11'
     pip install 'dendropy==4.3.0'
+    pip install numpy
     deactivate
 
     # tree comparison
@@ -138,6 +139,7 @@ From: ubuntu:18.04
     python -m virtualenv --system-site-packages env
     . env/bin/activate
     pip install 'dendropy==3.12.2'
+    pip install numpy
     deactivate
 
 %test
