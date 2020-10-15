@@ -19,6 +19,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y default-jre \
  && apt-get install -y default-jdk
 
+#python packages
 RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
  && apt-get install -y python-pip \
@@ -35,6 +36,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && python -m pip install click \
  && python3.8 -m pip install click
 
+# quick scripts
 RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && cd /opt/QuickScripts \
