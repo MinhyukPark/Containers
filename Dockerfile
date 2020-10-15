@@ -28,16 +28,16 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python-pip \
  && apt-get install -y python-tk \
  && apt-get install -y libpython2.7 \
- && apt-get install -y python3.6 \
- && apt-get install -y python3-pip \
- && apt-get install -y python3.6-tk \
- && apt-get install -y python3.6-venv \
- && python -m pip install --upgrade pip \
- && python3.6 -m pip install --upgrade pip \
- && python -m pip install virtualenv \
- && python3.6 -m pip install virtualenv \
- && python -m pip install click \
- && python3.6 -m pip install click
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 apt-get install -y python3.6 \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 apt-get install -y python3-pip \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 apt-get install -y python3.6-tk \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 apt-get install -y python3.6-venv \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 python -m pip install --upgrade pip \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 python3.6 -m pip install --upgrade pip \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 python -m pip install virtualenv \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 python3.6 -m pip install virtualenv \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 python -m pip install click \
+ && LC_ALL=C.UTF-8 LANG=C.UTF-8 python3.6 -m pip install click
 
 RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
