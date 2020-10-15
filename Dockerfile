@@ -18,9 +18,13 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y default-jre \
  && apt-get install -y default-jdk
 
+RUN apt-get install -y locales \
+ && locale-gen en_US.UTF-8 \
+ && update-locale LANG=en_US.utf-8 \
+ && update-locale LC_ALL=en_US.utf-8
+
 # system wide python packages
-RUN update-locale LANG=en_US.utf-8 \
- && add-apt-repository ppa:deadsnakes/ppa \
+RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
  && apt-get install -y python-pip \
  && apt-get install -y python-tk \
