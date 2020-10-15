@@ -2,8 +2,8 @@ FROM ubuntu:16.04
 
 ENV TZ=America/Chicago
 ENV DEBIAN_FRONTEND=noninteractive
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
+ENV LC_ALL=en_US.utf-8
+ENV LANG=en_US.utf-8
 
 #basic packages
 RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
@@ -19,7 +19,8 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y default-jdk
 
 # system wide python packages
-RUN add-apt-repository ppa:deadsnakes/ppa \
+RUN update-locale LANG=en_US.utf-8 \
+ && add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
  && apt-get install -y python-pip \
  && apt-get install -y python-tk \
