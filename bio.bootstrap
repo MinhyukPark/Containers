@@ -120,6 +120,15 @@ From: ubuntu:18.04
     pip install 'dendropy==4.3.0'
     pip install numpy
     deactivate
+    ## GTM
+    cd /opt/
+    git clone "https://github.com/vlasmirnov/GTM.git"
+    cd /opt/GTM
+    python3 -m venv --system-site-packages env
+    . env/bin/activate
+    pip3 install dendropy
+    pip3 install argparse
+    deactivate
 
     # tree comparison
     ## Erin's tools from NJMerge
@@ -178,6 +187,9 @@ From: ubuntu:18.04
     echo -n "TreeMerge was installed to: "
     (test -f /opt/treemerge/python/treemerge.py && echo "/opt/treemerge/python/treemerge.py" )|| echo "ERROR: Please check the installation for TreeMerge"
 
+    echo -n "GTM was installed to: "
+    (test -f /opt/GTM/gtm.py && echo "/opt/GTM/gtm.py" )|| echo "ERROR: Please check the installation for GTM"
+
     echo -n "Statistical Binning was installed to: "
     (test -f /opt/binning/remove_edges_from_tree.py && echo "/opt/binning" )|| echo "ERROR: Please check the installation for Statistical Binning"
 
@@ -191,17 +203,6 @@ From: ubuntu:18.04
     echo -n "Checking Python version: "
     python --version || echo "ERROR: Please check the installation for Python 2"
     python3 --version || echo "ERROR: Please check the installation for Python 3"
-
-    echo -n "Checking Pyvolve: "
-    (python3 -c "import pyvolve" && echo "\n") || echo "ERROR: Please check the installation for pyvolve in python 3"
-
-    echo -n "Checking Numpy: "
-    (python -c "import numpy" && echo "") || echo "ERROR: Please check the installation for numpy in python 2"
-    (python3 -c "import numpy" && echo "") || echo "ERROR: Please check the installation for numpy in python 3"
-
-    echo -n "Checking Dendropy: "
-    (python -c "import dendropy" && echo "") || echo "ERROR: Please check the installation for dendropy in python 2"
-    (python3 -c "import dendropy" && echo "") || echo "ERROR: Please check the installation for dendropy in python 3"
 
     echo -n "Checking Click: "
     (python -c "import click" && echo "") || echo "ERROR: Please check the installation for click in python 2"
