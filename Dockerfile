@@ -97,10 +97,10 @@ RUN cd /opt/ \
  && cd /opt/ \
  && git clone "https://github.com/vlasmirnov/GTM.git" \
  && cd /opt/GTM \
- && python3 -m venv --system-site-packages env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && pip3 install dendropy \
- && pip3 install argparse \
+ && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install argparse \
  && deactivate
 
 
