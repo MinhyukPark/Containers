@@ -93,8 +93,9 @@ RUN cd /opt/ \
  && python -m pip install 'networkx==1.11' \
  && python -m pip install 'dendropy==4.3.0' \
  && python -m pip install numpy \
- && deactivate \
- && cd /opt/ \
+ && deactivate
+
+RUN cd /opt/ \
  && git clone "https://github.com/vlasmirnov/GTM.git" \
  && cd /opt/GTM \
  && python3.7 -m venv --system-site-packages env \
@@ -102,7 +103,6 @@ RUN cd /opt/ \
  && python3.7 -m pip install dendropy \
  && python3.7 -m pip install argparse \
  && deactivate
-
 
 # Tree Comparison
 RUN mkdir /opt/erin_tools \
