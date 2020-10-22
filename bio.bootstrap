@@ -68,6 +68,7 @@ From: ubuntu:18.04
     pip3 install matplotlib
     pip3 install numpy
     pip3 install treeswift
+    pip3 install scikit-learn
     pip3 install pyvolve # sequence evolution simulator
     deactivate
 

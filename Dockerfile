@@ -46,6 +46,7 @@ RUN cd /opt/ \
  && python3.7 -m pip install numpy \
  && python3.7 -m pip install treeswift \
  && python3.7 -m pip install pyvolve \
+ && python3.7 -m pip install scikit-learn \
  && deactivate
 
 # Simulators
