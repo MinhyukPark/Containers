@@ -86,9 +86,9 @@ RUN apt-get install -y phyml raxml fasttree \
  && ln -s /opt/iqtree/iqtree-1.6.12-Linux/bin/iqtree /usr/bin/iqtree \
  && mkdir /opt/iqtree2 \
  && cd /opt/iqtree2 \
- && wget "https://github.com/iqtree/iqtree2/releases/download/v2.1.1/iqtree-2.1.1-Linux.tar.gz" \
- && tar -xzf ./iqtree-2.1.1-Linux.tar.gz \
- && ln -s /opt/iqtree2/iqtree-2.1.1-Linux/bin/iqtree2 /usr/bin/iqtree2
+ && wget "https://github.com/Cibiv/IQ-TREE/releases/download/v2.0.6/iqtree-2.0.6-Linux32.tar.gz" \
+ && tar -xzf ./iqtree-2.0.6-Linux.tar.gz \
+ && ln -s /opt/iqtree2/iqtree-2.0.6-Linux/bin/iqtree2 /usr/bin/iqtree2
 
 
 # Tree Mergers
