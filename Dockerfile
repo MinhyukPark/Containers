@@ -17,7 +17,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y wget \
  && apt-get install -y git \
  && apt-get install -y default-jre \
- && apt-get install -y default-jdk
+ && apt-get install -y default-jdk \
  && apt-get install -y flex \
  && apt-get install -y bison \
  && apt-get install -y libgmp3-dev
