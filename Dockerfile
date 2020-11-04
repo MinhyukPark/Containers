@@ -18,6 +18,9 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y git \
  && apt-get install -y default-jre \
  && apt-get install -y default-jdk
+ && apt-get install -y flex \
+ && apt-get install -y bison \
+ && apt-get install -y libgmp3-dev
 
 #python packages
 RUN add-apt-repository ppa:deadsnakes/ppa \
@@ -74,11 +77,14 @@ RUN apt-get install -y phyml raxml fasttree \
  && wget "https://github.com/pranjalv123/ASTRID-1/releases/download/v1.4/ASTRID-linux" \
  && chmod +x ./ASTRID-linux \
  && ln -s /opt/astrid/ASTRID-linux /usr/bin/astrid \
- && mkdir /opt/raxmlng \
- && cd /opt/raxmlng \
- && wget "https://github.com/amkozlov/raxml-ng/releases/download/1.0.1/raxml-ng_v1.0.1_linux_x86_64.zip" \
- && unzip ./raxml-ng_v1.0.1_linux_x86_64.zip \
- && ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng \
+ && cd /opt/ \
+ && git clone --recursive https://github.com/amkozlov/raxml-ng \
+ && cd raxml-ng \
+ && mkdir build \
+ && cd build \
+ && cmake .. \
+ && make \
+ && ln -s /opt/raxml-ng/bin/raxml-ng /usr/bin/raxmlng \
  && mkdir /opt/iqtree \
  && cd /opt/iqtree \
  && wget "https://github.com/Cibiv/IQ-TREE/releases/download/v1.6.12/iqtree-1.6.12-Linux.tar.gz" \
