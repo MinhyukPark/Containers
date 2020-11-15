@@ -62,7 +62,19 @@ RUN apt-get install -y indelible \
  && ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy
 
 # Sequence Alignment
-RUN apt-get install -y mafft
+RUN apt-get install -y mafft \
+ && cd /opt \
+ && mkdir /opt/pasta-code \
+ && cd /opt/pasta-code \
+ && python3.7 -m venv --system-site-packages env \
+ && . env/bin/activate \
+ && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install setuptools \
+ && git clone https://github.com/smirarab/pasta.git \
+ && git clone https://github.com/smirarab/sate-tools-linux.git \
+ && cd pasta \
+ && python3.7 setup.py develop \
+ && deactivate
 
 # Tree Inference
 RUN apt-get install -y phyml raxml fasttree \
