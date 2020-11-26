@@ -106,7 +106,13 @@ RUN apt-get install -y phyml raxml fasttree \
  && cd /opt/iqtree2 \
  && wget "https://github.com/Cibiv/IQ-TREE/releases/download/v2.0.6/iqtree-2.0.6-Linux.tar.gz" \
  && tar -xzf ./iqtree-2.0.6-Linux.tar.gz \
- && ln -s /opt/iqtree2/iqtree-2.0.6-Linux/bin/iqtree2 /usr/bin/iqtree2
+ && ln -s /opt/iqtree2/iqtree-2.0.6-Linux/bin/iqtree2 /usr/bin/iqtree2 \
+ && cd /opt/ \
+ && git clone https://gite.lirmm.fr/atgc/FastME.git \
+ && cd FastME \
+ && ./configure \
+ && make \
+ && ln -s /opt/FastME/src/fastme /usr/bin/fastme
 
 
 # Tree Mergers
