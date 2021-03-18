@@ -32,11 +32,11 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python3-pip \
  && apt-get install -y python3.7-tk \
  && apt-get install -y python3.7-venv \
- && python -m pip install --upgrade pip \
+ && python2.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade pip \
- && python -m pip install virtualenv \
+ && python2.7 -m pip install virtualenv \
  && python3.7 -m pip install virtualenv \
- && python -m pip install click \
+ && python2.7 -m pip install click \
  && python3.7 -m pip install click
 
 # quick scripts
@@ -118,11 +118,11 @@ RUN apt-get install -y phyml raxml fasttree \
 RUN cd /opt/ \
  && git clone "https://github.com/ekmolloy/treemerge.git" \
  && cd /opt/treemerge \
- && python -m virtualenv --system-site-packages env \
+ && python2.7 -m virtualenv --system-site-packages env \
  && . env/bin/activate \
- && python -m pip install 'networkx==1.11' \
- && python -m pip install 'dendropy==4.3.0' \
- && python -m pip install numpy \
+ && python2.7 -m pip install 'networkx==1.11' \
+ && python2.7 -m pip install 'dendropy==4.3.0' \
+ && python2.7 -m pip install numpy \
  && deactivate \
  && cd /opt/ \
  && git clone "https://github.com/MinhyukPark/INC.git" \
@@ -152,7 +152,7 @@ RUN mkdir /opt/erin_tools \
  && cd /opt/ \
  && git clone "https://github.com/smirarab/binning.git" \
  && cd binning \
- && python -m virtualenv --system-site-packages env \
+ && python2.7 -m virtualenv --system-site-packages env \
  && . env/bin/activate \
- && python -m pip install 'dendropy==3.12.2' \
+ && python2.7 -m pip install 'dendropy==3.12.2' \
  && deactivate
