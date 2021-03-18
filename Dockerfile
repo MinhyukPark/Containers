@@ -123,7 +123,13 @@ RUN cd /opt/ \
  && python -m pip install 'networkx==1.11' \
  && python -m pip install 'dendropy==4.3.0' \
  && python -m pip install numpy \
- && deactivate
+ && deactivate \
+ && cd /opt/ \
+ && git clone "https://github.com/MinhyukPark/INC.git" \
+ && cd /opt/INC \
+ && make constraint_inc \
+ && chmod +x ./constraint_inc \
+ && ln -s /opt/INC/constraint_inc /usr/bin/constraint_inc
 
 RUN cd /opt/ \
  && git clone "https://github.com/vlasmirnov/GTM.git" \
