@@ -20,14 +20,18 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y default-jdk \
  && apt-get install -y flex \
  && apt-get install -y bison \
- && apt-get install -y libgmp3-dev
+ && apt-get install -y libgmp3-dev \
+ && apt-get install -y libpython2.7
 
 #python packages
+# && apt-get install -y python-pip \
+# && apt-get install -y python-tk \
 RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
- && apt-get install -y python-pip \
- && apt-get install -y python-tk \
- && apt-get install -y libpython2.7 \
+ && apt-get install -y python2.7 \
+ && apt-get install -y python2-pip \
+ && apt-get install -y python2.7-tk \
+ && apt-get install -y python2.7-venv \
  && apt-get install -y python3.7 \
  && apt-get install -y python3-pip \
  && apt-get install -y python3.7-tk \
