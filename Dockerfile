@@ -22,6 +22,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y bison \
  && apt-get install -y libgmp3-dev
 
+# python2.7 -m pip install --upgrade pip \
 #python packages
 RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
@@ -31,7 +32,6 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python3-pip \
  && apt-get install -y python3.7-tk \
  && apt-get install -y python3.7-venv \
- && python2.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade pip \
  && python2.7 -m pip install virtualenv \
  && python3.7 -m pip install virtualenv \
