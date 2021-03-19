@@ -75,7 +75,14 @@ RUN apt-get install -y mafft \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
  && python3.7 setup.py develop \
- && deactivate
+ && deactivate \
+ && cd /opt/ \
+ && git clone https://github.com/scapella/trimal.git \
+ && cd /opt/trimal/source \
+ && make \
+ && chmod +x ./trimAl \
+ && ln -s /opt/trimal/source/trimAl /usr/bin/trimal
+
 
 # Tree Inference
 RUN apt-get install -y phyml raxml fasttree \
@@ -127,6 +134,11 @@ RUN cd /opt/ \
  && deactivate \
  && cd /opt/ \
  && git clone "https://github.com/MinhyukPark/INC.git" \
+ && cd /opt/INC \
+ && make constraint_inc \
+ && chmod +x ./constraint_inc \
+ && ln -s /opt/INC/constraint_inc /usr/bin/constraint_inc
+ && git clone "https://github.com/MinhyukPark/treemerge.git" \
  && cd /opt/INC \
  && make constraint_inc \
  && chmod +x ./constraint_inc \
