@@ -80,8 +80,8 @@ RUN apt-get install -y mafft \
  && git clone https://github.com/scapella/trimal.git \
  && cd /opt/trimal/source \
  && make \
- && chmod +x ./trimAl \
- && ln -s /opt/trimal/source/trimAl /usr/bin/trimal
+ && chmod +x ./trimal \
+ && ln -s /opt/trimal/source/trimal /usr/bin/trimal
 
 
 # Tree Inference
