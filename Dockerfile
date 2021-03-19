@@ -138,11 +138,9 @@ RUN cd /opt/ \
  && make constraint_inc \
  && chmod +x ./constraint_inc \
  && ln -s /opt/INC/constraint_inc /usr/bin/constraint_inc \
- && git clone "https://github.com/MinhyukPark/treemerge.git" \
- && cd /opt/INC \
- && make constraint_inc \
- && chmod +x ./constraint_inc \
- && ln -s /opt/INC/constraint_inc /usr/bin/constraint_inc
+ && mkdir /opt/newtreemerge \
+ && cd /opt/newtreemerge \
+ && git clone "https://github.com/MinhyukPark/treemerge.git"
 
 RUN cd /opt/ \
  && git clone "https://github.com/vlasmirnov/GTM.git" \
