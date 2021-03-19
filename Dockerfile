@@ -32,6 +32,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python3-pip \
  && apt-get install -y python3.7-tk \
  && apt-get install -y python3.7-venv \
+ && python2.7 -m pip install --upgrade 'pip==20.3.4' \
  && python3.7 -m pip install --upgrade pip \
  && python2.7 -m pip install virtualenv \
  && python3.7 -m pip install virtualenv \
