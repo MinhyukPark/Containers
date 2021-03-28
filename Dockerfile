@@ -40,7 +40,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && python3.7 -m pip install virtualenv \
  && python2.7 -m pip install click \
  && python3.7 -m pip install click \
- && python3.7 -m pip install --upgrade setuptools
+ && python3.7 -m pip install --upgrade setuptools wheels
 
 # quick scripts
 RUN cd /opt/ \
