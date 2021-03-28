@@ -31,6 +31,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python-pip \
  && apt-get install -y python3.7 \
  && apt-get install -y python3-pip \
+ && apt-get install -y python3-setuptools \
  && apt-get install -y python3.7-tk \
  && apt-get install -y python3.7-venv \
  && python2.7 -m pip install --upgrade 'pip==20.3.4' \
