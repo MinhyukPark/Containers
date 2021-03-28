@@ -23,7 +23,6 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y libgmp3-dev \
  && apt-get install -y time
 
-# python2.7 -m pip install --upgrade pip \
 #python packages
 RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
@@ -48,6 +47,7 @@ RUN cd /opt/ \
  && cd /opt/QuickScripts \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
+ && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install dendropy \
  && python3.7 -m pip install numpy \
  && python3.7 -m pip install treeswift \
