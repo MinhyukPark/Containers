@@ -11,6 +11,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get -y update \
  && apt-get install -y software-properties-common \
  && apt-get install -y build-essential \
+ && apt-get install -y gcc \
  && apt-get install -y cmake \
  && apt-get install -y gdb \
  && apt-get install -y tar \
@@ -33,6 +34,8 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python3-setuptools \
  && apt-get install -y python3.7-tk \
  && apt-get install -y python3.7-venv \
+ && apt-get install -y python3.7-dev \
+ && apt-get install -y python3.7-distutils \
  && python2.7 -m pip install --upgrade 'pip==20.3.4' \
  && python3.7 -m pip install --upgrade pip \
  && python2.7 -m pip install virtualenv \
@@ -47,7 +50,7 @@ RUN cd /opt/ \
  && cd /opt/QuickScripts \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && python3.7 -m pip install --upgrade pip \
+ && python3.7 -m pip install pip==18.1 \
  && python3.7 -m pip install dendropy \
  && python3.7 -m pip install numpy \
  && python3.7 -m pip install treeswift \
