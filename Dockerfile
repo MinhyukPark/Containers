@@ -52,6 +52,7 @@ RUN cd /opt/ \
  && python3.7 -m pip install pyvolve \
  && python3.7 -m pip install scipy \
  && python3.7 -m pip install scikit-learn \
+ && python3.7 -m pip install scikit-bio \
  && deactivate
 
 # Simulators
