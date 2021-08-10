@@ -4,7 +4,7 @@ From: ubuntu:18.04
 %environment
     TZ=America/Chicago
     DEBIAN_FRONTEND=noninteractive
-    export TZ DEBIAN_FRONTEND
+    export TZ=DEBIAN_FRONTEND
     export LC_ALL=C.UTF-8
     export LANG=C.UTF-8
 
@@ -13,9 +13,12 @@ From: ubuntu:18.04
     ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime
 
     # update first always
+    ## force ipv4 for apt-get
+    echo 'Acquire::ForceIPv4 "true";' | tee /etc/apt/apt.conf.d/99force-ipv4
     apt-get -y update
     # and then software-properties-common mostly because of add ppa
     apt-get install -y software-properties-common
+    apt-get install -y time
 
     # build tools
     apt-get install -y build-essential
@@ -24,12 +27,18 @@ From: ubuntu:18.04
     # swap gcc and g++
     update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
     apt-get install -y cmake
+    apt-get install -y autoconf
+    apt-get install -y automake
+    apt-get install -y pkg-config
     apt-get install -y gdb
+    apt-get install -y valgrind
     apt-get install -y tar
     apt-get install -y wget
     apt-get install -y git
     apt-get install -y default-jre
     apt-get install -y default-jdk
+    apt-get install -y mpi-default-bin
+    apt-get install -y mpi-default-dev
     apt-get clean
 
     # CRAN repo
@@ -68,13 +77,34 @@ From: ubuntu:18.04
     pip3 install matplotlib
     pip3 install numpy
     pip3 install treeswift
+    pip3 install Cython
+    pip3 install scipy
     pip3 install scikit-learn
+    pip3 install scikit-bio
+    pip3 install pyhmmer-sepp
     pip3 install pyvolve # sequence evolution simulator
+    pip3 install pytest
     deactivate
+
+    # hmms
+    mkdir /opt/hmmer
+    cd /opt/hmmer
+    wget "http://eddylab.org/software/hmmer/hmmer.tar.gz"
+    tar xf hmmer.tar.gz
+    cd hmmer-3.3.2
+    ./configure
+    make
+    make install
 
     # simulators
     ## indelible
-    apt-get install -y indelible
+    mkdir /opt/indelible
+    cd /opt/indelible
+    wget "http://abacus.gene.ucl.ac.uk/software/indelible/EFBKqHdv0v7qir6CyeHgqaz/INDELibleV1.03.tar.gz"
+    tar -xzf ./INDELibleV1.03.tar.gz
+    cd INDELibleV1.03/src
+    g++ -o indelible -O4 indelible.cpp
+    ln -s /opt/indelible/INDELibleV1.03/src/indelible /usr/bin/indelible
     ## simphy
     mkdir /opt/simphy
     cd /opt/simphy
@@ -83,12 +113,85 @@ From: ubuntu:18.04
     chmod +x ./SimPhy_1.0.2/bin/simphy_lnx64
     ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy
 
-    # Sequnece Alignment
-    apt-get install -y mafft
-    apt-get clean
+    # Sequence Alignment
+    ## MAFFT
+    mkdir /opt/mafft
+    cd /opt/mafft
+    wget "https://mafft.cbrc.jp/alignment/software/mafft-7.487-with-extensions-src.tgz"
+    tar -xzf ./mafft-7.487-with-extensions-src.tgz
+    cd ./mafft-7.487-with-extensions/core/
+    make clean
+    make
+    make install
+
+
+    ## HH-suite
+    cd /opt/
+    git clone https://github.com/soedinglab/hh-suite.git
+    cd hh-suite
+    mkdir build
+    cd build
+    cmake -DCMAKE_INSTALL_PREFIX="/opt/hh-suite" ..
+    make
+
+    ## trimal
+    cd /opt/
+    git clone "https://github.com/scapella/trimal.git"
+    cd trimal
+    cd source
+    make
+    ln -s /opt/trimal/source/trimal /usr/bin/trimal
+
+    ## muscle
+    mkdir /opt/muscle
+    cd /opt/muscle
+    wget "https://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz"
+    tar -xzf ./muscle3.8.31_i86linux64.tar.gz
+    ln -s /opt/muscle/muscle3.8.31_i86linux64 /usr/bin/muscle
+
+    ## PASTA
+    mkdir /opt/pasta-code
+    cd /opt/pasta-code
+    git clone https://github.com/smirarab/pasta.git
+    git clone https://github.com/smirarab/sate-tools-linux.git
+    python3 -m venv --system-site-packages env
+    . env/bin/activate
+    pip3 install dendropy
+    cd pasta
+    python setup.py develop
+    deactivate
+    export PATH=$PATH:/opt/pasta-code/pasta
+
+    ## sepp
+    cd /opt/
+    git clone https://github.com/smirarab/sepp.git
+    # git clone https://github.com/MinhyukPark/sepp.git
+    cd sepp
+    python3 -m venv --system-site-packages env
+    . env/bin/activate
+    pip3 install dendropy
+    pip3 install pyhmmer-sepp
+    python setup.py config -c
+    python setup.py install
+    python setup.py upp -c
+    deactivate
+
 
     # tree inference
-    apt-get install -y phyml raxml iqtree fasttree
+    ## phyml
+    cd /opt/
+    git clone https://github.com/stephaneguindon/phyml.git
+    cd /opt/phyml
+    sh ./autogen.sh
+    ./configure --enable-phyml
+    make
+    ln -s /opt/phyml/src/phyml /usr/bin/phyml
+    ## fasttree
+    mkdir /opt/fasttree
+    cd /opt/fasttree
+    wget "http://www.microbesonline.org/fasttree/FastTreeMP"
+    ln -s /opt/fasttree/FastTreeMP /usr/bin/fasttree
+
     ## PAUP*
     mkdir /opt/paup
     cd /opt/paup
@@ -96,19 +199,49 @@ From: ubuntu:18.04
     gunzip ./paup4a168_ubuntu64.gz
     chmod +x ./paup4a168_ubuntu64
     ln -s /opt/paup/paup4a168_ubuntu64 /usr/bin/paup
+
     ## ASTRID
     mkdir /opt/astrid
     cd /opt/astrid
     wget "https://github.com/pranjalv123/ASTRID-1/releases/download/v1.4/ASTRID-linux"
     chmod +x ./ASTRID-linux
     ln -s /opt/astrid/ASTRID-linux /usr/bin/astrid
+
     ## RAxML-ng
     mkdir /opt/raxmlng
     cd /opt/raxmlng
     wget "https://github.com/amkozlov/raxml-ng/releases/download/1.0.1/raxml-ng_v1.0.1_linux_x86_64.zip"
     unzip ./raxml-ng_v1.0.1_linux_x86_64.zip
     ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng
+
+    ## raxml7.2.4
+    mkdir /opt/raxml_7_2_4
+    cd /opt/raxml_7_2_4
+    wget "https://cme.h-its.org/exelixis/resource/download/software/RAxML-7.2.4.tar.bz2"
+    tar -xjf ./RAxML-7.2.4.tar.bz2
+    cd RAxML-7.2.4
+    make -f Makefile.SSE3.PTHREADS.gcc
+    ln -s raxmlHPC-PTHREADS-SSE3 /usr/bin/raxml-7.2.4
+
+    ## iqtree
+    mkdir /opt/iqtree
+    cd /opt/iqtree
+    wget "https://github.com/Cibiv/IQ-TREE/releases/download/v1.6.12/iqtree-1.6.12-Linux.tar.gz"
+    tar -xzf ./iqtree-1.6.12-Linux.tar.gz
+    ln -s /opt/iqtree/iqtree-1.6.12-Linux/bin/iqtree /usr/bin/iqtree
+    mkdir /opt/iqtree2
+    cd /opt/iqtree2
+    wget "https://github.com/Cibiv/IQ-TREE/releases/download/v2.0.6/iqtree-2.0.6-Linux.tar.gz"
+    tar -xzf ./iqtree-2.0.6-Linux.tar.gz
+    ln -s /opt/iqtree2/iqtree-2.0.6-Linux/bin/iqtree2 /usr/bin/iqtree2
     apt-get clean
+
+    ## clustalomega
+    mkdir /opt/clustalomega
+    cd /opt/clustalomega
+    wget "http://www.clustal.org/omega/clustalo-1.2.4-Ubuntu-x86_64"
+    chmod +x /opt/clustalomega/clustalo-1.2.4-Ubuntu-x86_64
+    ln -s /opt/clustalomega/clustalo-1.2.4-Ubuntu-x86_64 /usr/bin/clustalo
 
     # Disjoint Tree Mergers
     ## TreeMerge
@@ -120,6 +253,7 @@ From: ubuntu:18.04
     pip install 'networkx==1.11'
     pip install 'dendropy==4.3.0'
     pip install numpy
+    pip install treeswift
     deactivate
     ## GTM
     cd /opt/
@@ -130,17 +264,24 @@ From: ubuntu:18.04
     pip3 install dendropy
     pip3 install argparse
     deactivate
+    ## Constrained-inc
+    cd /opt/
+    git clone "https://github.com/MinhyukPark/INC.git"
+    cd /opt/INC
+    make constraint_inc
+    chmod +x ./constraint_inc
+    ln -s /opt/INC/constraint_inc /usr/bin/constraint_inc
 
     # tree comparison
     ## Erin's tools from NJMerge
-    mkdir /opt/erin_tools
-    cd /opt/erin_tools
-    wget "https://databank.illinois.edu/datafiles/ice5b/download"
-    unzip download
-    rm download
-    rm -r __MACOSX
-    mv tools/* ./
-    rm -r tools
+    #mkdir /opt/erin_tools
+    #cd /opt/erin_tools
+    #wget "https://databank.illinois.edu/datafiles/ice5b/download"
+    #unzip download
+    #rm download
+    #rm -r __MACOSX
+    #mv tools/* ./
+    #rm -r tools
 
     ## Siavash's tools from statistical binning
     cd /opt/
@@ -152,11 +293,25 @@ From: ubuntu:18.04
     pip install numpy
     deactivate
 
+    # clustering
+    ## mcl
+    mkdir /opt/mcl
+    cd /opt/mcl
+    wget "https://micans.org/mcl/src/mcl-14-137.tar.gz"
+    tar -xzf ./mcl-14.137.tar.gz
+    cd mcl-14.137
+    ./configure
+    make install
+
+
 %test
     echo "Testing Packages"
 
     echo -n "MAFFT was installed to: "
     which mafft || echo "ERROR: Please check the installation for MAFFT"
+
+    echo -n "ClustalOmega was installed to: "
+    which clustalo || echo "ERROR: Please check the installation for ClustalOmega"
 
     echo -n "RAxML was installed to: "
     which raxmlHPC || echo "ERROR: Please check the installation for RAxML"
@@ -185,17 +340,23 @@ From: ubuntu:18.04
     echo -n "INDELible was installed to: "
     which indelible || echo "ERROR: Please check the installation for INDELible"
 
+    echo -n "mcl was installed to: "
+    which mcl || echo "ERROR: Please check the installation for mcl"
+
     echo -n "TreeMerge was installed to: "
     (test -f /opt/treemerge/python/treemerge.py && echo "/opt/treemerge/python/treemerge.py" )|| echo "ERROR: Please check the installation for TreeMerge"
 
     echo -n "GTM was installed to: "
     (test -f /opt/GTM/gtm.py && echo "/opt/GTM/gtm.py" )|| echo "ERROR: Please check the installation for GTM"
 
+    echo -n "Constrained-inc was installed to: "
+    which constraint_inc || echo "ERROR: Please check the installation for Constrained-inc"
+
     echo -n "Statistical Binning was installed to: "
     (test -f /opt/binning/remove_edges_from_tree.py && echo "/opt/binning" )|| echo "ERROR: Please check the installation for Statistical Binning"
 
-    echo -n "Erin's Tools were installed to: "
-    (test -f /opt/erin_tools/compare_trees.py && echo "/opt/erin_tools/compare_trees.py" )|| echo "ERROR: Please check the installation for Erin's Tools"
+    # echo -n "Erin's Tools were installed to: "
+    # (test -f /opt/erin_tools/compare_trees.py && echo "/opt/erin_tools/compare_trees.py" )|| echo "ERROR: Please check the installation for Erin's Tools"
 
     echo -n "Checking Java version: "
     java -version || echo "ERROR: Please check the installation for Default Java Runtime"
