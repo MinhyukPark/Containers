@@ -60,9 +60,9 @@ RUN mkdir /opt/siavash-code \
  && cd /opt/siavash-code/pasta \
  && python3.7 setup.py develop \
  && cd /opt/siavash-code/sepp \
- && python3.7 setup.py config -c \
- && python3.7 setup.py install \
- && python3.7 setup.py upp -c \
+ && python setup.py config -c \
+ && python setup.py install \
+ && python setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
