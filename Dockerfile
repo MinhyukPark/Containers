@@ -41,31 +41,29 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && python3.7 -m pip install --upgrade pip \
  && python2.7 -m pip install click \
  && python3.7 -m pip install click \
- && python3.7 -m pip install --upgrade setuptools
+ && python3.7 -m pip install --upgrade setuptools \
  && python2.7 -m pip install virtualenv \
- && python3.7 -m pip install virtualenv \
+ && python3.7 -m pip install virtualenv
 
 # Sequence Alignment
-RUN apt-get install -y \
- && cd /opt \
- && mkdir /opt/pasta-code \
+RUN mkdir /opt/pasta-code \
  && cd /opt/pasta-code \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install setuptools \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
  && python3.7 setup.py develop \
  && deactivate \
- && export PATH=$PATH:/opt/pasta-code/pasta \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install setuptools \
  && python3.7 setup.py config -c \
  && python3.7 setup.py install \
  && python3.7 setup.py upp -c \
