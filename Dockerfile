@@ -61,12 +61,13 @@ RUN apt-get install -y \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
  && python3.7 setup.py develop \
+ && export PATH=$PATH:/opt/pasta-code/pasta \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
- && python3.7 setup.py config \
+ && python3.7 setup.py config -c \
  && python3.7 setup.py install \
- && python3.7 setup.py upp \
+ && python3.7 setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
