@@ -60,7 +60,7 @@ RUN apt-get install -y \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
- && python3.7 setup.py develop -c \
+ && python3.7 setup.py develop \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
