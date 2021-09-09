@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
-ENV PATH="/opt/pasta-code/pasta:${PATH}"
 
 #basic packages
 RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
@@ -64,7 +63,7 @@ RUN mkdir /opt/pasta-code \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
  && python3.7 -m pip install setuptools \
- && export PATH=$PATH:/opt/pasta-code/pasta \
+ && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && python3.7 setup.py config -c \
  && python3.7 setup.py install \
  && python3.7 setup.py upp -c \
