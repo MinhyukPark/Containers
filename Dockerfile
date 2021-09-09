@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 ENV TZ America/Chicago
 ENV DEBIAN_FRONTEND noninteractive
@@ -64,8 +64,8 @@ RUN mkdir /opt/pasta-code \
  && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade setuptools \
  && python3.7 -m pip install dendropy \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && python3.7 setup.py config -c \
+ && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && python3.7 setup.py install \
  && python3.7 setup.py upp -c \
  && deactivate \
