@@ -58,13 +58,13 @@ RUN apt-get install -y \
  && cd pasta \
  && python3.7 setup.py develop \
  && deactivate \
+ && export PATH=$PATH:/opt/pasta-code/pasta \
+ && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && export PATH=$PATH:/opt/pasta-code/pasta \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && python3.7 -m pip install dendropy \
  && python3.7 setup.py config -c \
  && python3.7 setup.py install \
