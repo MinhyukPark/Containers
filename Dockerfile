@@ -58,15 +58,16 @@ RUN mkdir /opt/pasta-code \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
- && cd sepp \
+ && cd /opt/sepp \
  && python3.7 -m venv env \
  && . env/bin/activate \
  && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade setuptools \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
- && python3.7 ./setup.py config -c \
- && python3.7 ./setup.py install \
- && python3.7 ./setup.py upp -c \
+ && export PATH=$PATH:/opt/pasta-code/pasta \
+ && python3.7 setup.py --help \
+ && python3.7 setup.py config --contained \
+ && python3.7 setup.py install \
+ && python3.7 setup.py upp --contained \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
