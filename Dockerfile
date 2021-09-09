@@ -46,8 +46,8 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && python3.7 -m pip install virtualenv
 
 # Sequence Alignment
-RUN mkdir /opt/pasta-code \
- && cd /opt/pasta-code \
+RUN mkdir /opt/siavash-code \
+ && cd /opt/siavash-code \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install --upgrade pip \
@@ -57,9 +57,9 @@ RUN mkdir /opt/pasta-code \
  && git clone https://github.com/gillichu/sepp.git \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
- && cd /opt/pasta-code/pasta \
+ && cd /opt/siavash-code/pasta \
  && python3.7 setup.py develop \
- && cd /opt/sepp \
+ && cd /opt/siavash-code/sepp \
  && python3.7 setup.py config -c \
  && python3.7 setup.py install \
  && python3.7 setup.py upp -c \
