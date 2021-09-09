@@ -50,11 +50,9 @@ RUN apt-get install -y \
  && cd /opt \
  && mkdir /opt/pasta-upp-env \
  && cd /opt/pasta-upp-env \
- && export PATH="/opt/pasta-code/pasta/:${PATH}" \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
- && python3.7 -m pip install setuptools \
  && mkdir /opt/pasta-code \
  && cd /opt/pasta-code \
  && git clone https://github.com/smirarab/pasta.git \
