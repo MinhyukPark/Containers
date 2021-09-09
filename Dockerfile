@@ -84,6 +84,7 @@ RUN apt-get install -y \
  && cd pasta \
  && python3.7 setup.py develop \
  && deactivate \
+ && export PATH="/opt/pasta-code/pasta:${PATH}" \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
