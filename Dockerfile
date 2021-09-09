@@ -5,6 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV LANGUAGE C.UTF-8
+ENV PATH="/opt/pasta-code/pasta:${PATH}"
 
 #basic packages
 RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
@@ -70,7 +71,7 @@ RUN apt-get install -y indelible \
  && ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy
 
 # Sequence Alignment
-RUN apt-get install -y mafft \
+RUN apt-get install -y \
  && cd /opt \
  && mkdir /opt/pasta-code \
  && cd /opt/pasta-code \
@@ -84,15 +85,39 @@ RUN apt-get install -y mafft \
  && python3.7 setup.py develop \
  && deactivate \
  && cd /opt/ \
+ && git clone https://github.com/gillichu/sepp.git \
+ && cd sepp \
+ && python3 -m venv --system-site-packages env \
+ && . env/bin/activate \
+ && pip3 install dendropy \
+ && python setup.py config -c \
+ && python setup.py install \
+ && python setup.py upp -c \
+ && deactivate \
+ && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
  && cd /opt/trimal/source \
  && make \
  && chmod +x ./trimal \
- && ln -s /opt/trimal/source/trimal /usr/bin/trimal
+ && ln -s /opt/trimal/source/trimal /usr/bin/trimal \
+ && mkdir /opt/mafft
+ && cd /opt/mafft \
+ && wget "https://mafft.cbrc.jp/alignment/software/mafft-7.487-with-extensions-src.tgz" \
+ && tar -xzf ./mafft-7.487-with-extensions-src.tgz \
+ && cd ./mafft-7.487-with-extensions/core/ \
+ && make clean \
+ && make \
+ && make install
 
 
 # Tree Inference
-RUN apt-get install -y phyml raxml fasttree \
+RUN apt-get install -y phyml \
+ && mkdir /opt/fasttree \
+ && cd /opt/fasttree \
+ && wget "http://www.microbesonline.org/fasttree/FastTree-2.1.11.c" \
+ && gcc -DUSE_DOUBLE -DOPENMP -fopenmp -O3 -finline-functions -funroll-loops -Wall -o FastTreeMP FastTree-2.1.11.c -lm \
+ && chmod +x ./FastTreeMP \
+ && ln -s /opt/fasttree/FastTreeMP /usr/bin/fasttree \
  && mkdir /opt/paup \
  && cd /opt/paup \
  && wget "http://phylosolutions.com/paup-test/paup4a168_ubuntu64.gz" \
@@ -104,14 +129,18 @@ RUN apt-get install -y phyml raxml fasttree \
  && wget "https://github.com/pranjalv123/ASTRID-1/releases/download/v1.4/ASTRID-linux" \
  && chmod +x ./ASTRID-linux \
  && ln -s /opt/astrid/ASTRID-linux /usr/bin/astrid \
- && cd /opt/ \
- && git clone --recursive https://github.com/amkozlov/raxml-ng \
- && cd raxml-ng \
- && mkdir build \
- && cd build \
- && cmake .. \
- && make \
- && ln -s /opt/raxml-ng/bin/raxml-ng /usr/bin/raxmlng \
+ && mkdir /opt/raxmlng \
+ && cd /opt/raxmlng \
+ && wget "https://github.com/amkozlov/raxml-ng/releases/download/1.0.1/raxml-ng_v1.0.1_linux_x86_64.zip" \
+ && unzip ./raxml-ng_v1.0.1_linux_x86_64.zip \
+ && ln -s /opt/raxmlng/raxml-ng /usr/bin/raxmlng \
+ && mkdir /opt/raxml_7_2_4 \
+ && cd /opt/raxml_7_2_4 \
+ && wget "https://cme.h-its.org/exelixis/resource/download/software/RAxML-7.2.4.tar.bz2" \
+ && tar -xjf ./RAxML-7.2.4.tar.bz2 \
+ && cd RAxML-7.2.4 \
+ && make -f Makefile.SSE3.PTHREADS.gcc \
+ && ln -s raxmlHPC-PTHREADS-SSE3 /usr/bin/raxml \
  && mkdir /opt/iqtree \
  && cd /opt/iqtree \
  && wget "https://github.com/Cibiv/IQ-TREE/releases/download/v1.6.12/iqtree-1.6.12-Linux.tar.gz" \

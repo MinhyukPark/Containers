@@ -15,6 +15,12 @@ From: ubuntu:18.04
     # update first always
     ## force ipv4 for apt-get
     echo 'Acquire::ForceIPv4 "true";' | tee /etc/apt/apt.conf.d/99force-ipv4
+    ## longer timeout
+    echo 'Acquire::http::Timeout "300";' | tee /etc/apt/apt.conf.d/99timeout
+    ## More retries
+    echo 'Acquire::Retries "10";' | tee /etc/apt/apt.conf.d/99retries
+    ## Limit download and disable parallel
+    echo 'Acquire::http::Dl-Limit "2000";' | tee /etc/apt/apt.conf.d/99dl-limit
     apt-get -y update
     # and then software-properties-common mostly because of add ppa
     apt-get install -y software-properties-common
@@ -190,6 +196,7 @@ From: ubuntu:18.04
     mkdir /opt/fasttree
     cd /opt/fasttree
     wget "http://www.microbesonline.org/fasttree/FastTreeMP"
+    chmod +x ./FastTreeMP
     ln -s /opt/fasttree/FastTreeMP /usr/bin/fasttree
 
     ## PAUP*
@@ -298,8 +305,8 @@ From: ubuntu:18.04
     mkdir /opt/mcl
     cd /opt/mcl
     wget "https://micans.org/mcl/src/mcl-14-137.tar.gz"
-    tar -xzf ./mcl-14.137.tar.gz
-    cd mcl-14.137
+    tar -xzf ./mcl-14-137.tar.gz
+    cd mcl-14-137
     ./configure
     make install
 
