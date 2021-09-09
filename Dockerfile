@@ -138,7 +138,7 @@ RUN apt-get install -y phyml \
  && tar -xjf ./RAxML-7.2.4.tar.bz2 \
  && cd RAxML-7.2.4 \
  && make -f Makefile.SSE3.PTHREADS.gcc \
- && ln -s raxmlHPC-PTHREADS-SSE3 /usr/bin/raxml \
+ && ln -s /opt/raxml_7_2_4/RAxML-7.2.4/raxmlHPC-PTHREADS-SSE3 /usr/bin/raxml \
  && mkdir /opt/iqtree \
  && cd /opt/iqtree \
  && wget "https://github.com/Cibiv/IQ-TREE/releases/download/v1.6.12/iqtree-1.6.12-Linux.tar.gz" \
