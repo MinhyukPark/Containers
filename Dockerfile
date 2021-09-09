@@ -60,6 +60,7 @@ RUN apt-get install -y \
  && cd pasta \
  && python3.7 setup.py develop \
  && export PATH=$PATH:/opt/pasta-code/pasta \
+ && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
