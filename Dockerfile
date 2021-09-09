@@ -63,7 +63,7 @@ RUN mkdir /opt/pasta-code \
  && . env/bin/activate \
  && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade setuptools \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
+ && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta/pasta \
  && python3.7 setup.py config -c \
  && python3.7 setup.py install \
  && python3.7 setup.py upp -c \
