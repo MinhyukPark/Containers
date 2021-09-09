@@ -66,13 +66,12 @@ RUN mkdir /opt/pasta-code \
  && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade setuptools \
  && curl https://bootstrap.pypa.io/ez_setup.py -o - | python3.7 \
- && export PATH=/opt/pasta-code/env/bin:${PATH} \
  && python3.7 -m pip install pyhmmer-sepp \
  && cd /opt/sepp \
  && python3.7 setup.py --help \
- && python3.7 setup.py config --contained \
+ && python3.7 setup.py config -c \
  && python3.7 setup.py install \
- && python3.7 setup.py upp --contained \
+ && python3.7 setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
