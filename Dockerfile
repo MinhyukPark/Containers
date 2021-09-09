@@ -100,7 +100,7 @@ RUN apt-get install -y \
  && make \
  && chmod +x ./trimal \
  && ln -s /opt/trimal/source/trimal /usr/bin/trimal \
- && mkdir /opt/mafft
+ && mkdir /opt/mafft \
  && cd /opt/mafft \
  && wget "https://mafft.cbrc.jp/alignment/software/mafft-7.487-with-extensions-src.tgz" \
  && tar -xzf ./mafft-7.487-with-extensions-src.tgz \
