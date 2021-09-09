@@ -25,7 +25,8 @@ RUN ln -fs /usr/share/zoneinfo/America/Chicago /etc/localtime \
  && apt-get install -y libgmp3-dev \
  && apt-get install -y time
 
-#python packages
+# python packages
+# EOL for 16.04. python3.6+ safe to use
 RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
  && apt-get install -y python2.7 \
