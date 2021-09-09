@@ -39,11 +39,11 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get install -y python3.7-distutils \
  && python2.7 -m pip install --upgrade 'pip==20.3.4' \
  && python3.7 -m pip install --upgrade pip \
- && python2.7 -m pip install virtualenv \
- && python3.7 -m pip install virtualenv \
  && python2.7 -m pip install click \
  && python3.7 -m pip install click \
  && python3.7 -m pip install --upgrade setuptools
+ && python2.7 -m pip install virtualenv \
+ && python3.7 -m pip install virtualenv \
 
 # Sequence Alignment
 RUN apt-get install -y \
