@@ -48,25 +48,27 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
 # Sequence Alignment
 RUN apt-get install -y \
  && cd /opt \
- && mkdir /opt/pasta-upp-env \
- && cd /opt/pasta-upp-env \
+ && mkdir /opt/pasta-code \
+ && cd /opt/pasta-code \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
- && mkdir /opt/pasta-code \
- && cd /opt/pasta-code \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
  && python3.7 setup.py develop \
- && export PATH=$PATH:/opt/pasta-code/pasta \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
+ && deactivate \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
- && python3.7 setup.py config \
+ && python3.7 -m venv --system-site-packages env \
+ && . env/bin/activate \
+ && export PATH=$PATH:/opt/pasta-code/pasta \
+ && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install pyhmmer-sepp \
+ && python3.7 setup.py config -c \
  && python3.7 setup.py install \
- && python3.7 setup.py upp \
+ && python3.7 setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
