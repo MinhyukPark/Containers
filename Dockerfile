@@ -87,7 +87,7 @@ RUN apt-get install -y \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
- && python3 -m venv --system-site-packages env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && pip3 install dendropy \
  && python setup.py config -c \
