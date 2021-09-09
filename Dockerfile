@@ -63,9 +63,9 @@ RUN mkdir /opt/pasta-code \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
  && python3.7 -m pip install -U setuptools \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && python3.7 setup.py config -c \
  && python3.7 setup.py install \
+ && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && python3.7 setup.py upp -c \
  && deactivate \
  && cd /opt/ \
