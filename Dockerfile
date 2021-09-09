@@ -54,7 +54,7 @@ RUN mkdir /opt/pasta-code \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
- && python3.7 setup.py develop \
+ && python3.7 setup.py develop --user \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
@@ -64,8 +64,8 @@ RUN mkdir /opt/pasta-code \
  && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade setuptools \
  && python3.7 -m pip install dendropy \
- && python3.7 setup.py config -c \
  && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
+ && python3.7 setup.py config -c \
  && python3.7 setup.py install \
  && python3.7 setup.py upp -c \
  && deactivate \
