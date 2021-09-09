@@ -54,7 +54,7 @@ RUN mkdir /opt/pasta-code \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
- && python3.7 setup.py develop --user \
+ && python3.7 setup.py develop \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
@@ -63,10 +63,10 @@ RUN mkdir /opt/pasta-code \
  && . env/bin/activate \
  && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade setuptools \
- && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta/pasta \
- && python3.7 setup.py config -c \
- && python3.7 setup.py install \
- && python3.7 setup.py upp -c \
+ && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
+ && python3.7 ./setup.py config -c \
+ && python3.7 ./setup.py install \
+ && python3.7 ./setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
