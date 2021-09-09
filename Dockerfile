@@ -66,10 +66,9 @@ RUN apt-get install -y \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
- && python3.7 -m pip install pyhmmer-sepp \
- && python3.7 setup.py config -c \
+ && python3.7 setup.py config \
  && python3.7 setup.py install \
- && python3.7 setup.py upp -c \
+ && python3.7 setup.py upp \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
