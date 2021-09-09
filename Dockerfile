@@ -47,23 +47,27 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
 # Sequence Alignment
 RUN mkdir /opt/pasta-code \
  && cd /opt/pasta-code \
- && python3.7 -m venv env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
  && python3.7 -m pip install setuptools \
+ && curl https://bootstrap.pypa.io/ez_setup.py -o - | python3.7 \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
- && cd pasta \
+ && cd /opt/pasta-code/pasta \
  && python3.7 setup.py develop \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd /opt/sepp \
- && python3.7 -m venv env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install --upgrade pip \
  && python3.7 -m pip install --upgrade setuptools \
- && export PATH=$PATH:/opt/pasta-code/pasta \
+ && curl https://bootstrap.pypa.io/ez_setup.py -o - | python3.7 \
+ && export PATH=/opt/pasta-code/env/bin:${PATH} \
+ && python3.7 -m pip install pyhmmer-sepp \
+ && cd /opt/sepp \
  && python3.7 setup.py --help \
  && python3.7 setup.py config --contained \
  && python3.7 setup.py install \
