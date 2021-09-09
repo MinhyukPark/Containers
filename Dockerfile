@@ -64,9 +64,9 @@ RUN apt-get install -y \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
- && python3.7 setup.py config -c \
- && python3.7 setup.py install -c \
- && python3.7 setup.py upp -c \
+ && python3.7 setup.py config \
+ && python3.7 setup.py install \
+ && python3.7 setup.py upp \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
