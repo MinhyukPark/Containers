@@ -91,9 +91,9 @@ RUN apt-get install -y \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && pip3 install dendropy \
- && python setup.py config -c \
- && python setup.py install \
- && python setup.py upp -c \
+ && python3.7 setup.py config -c \
+ && python3.7 setup.py install \
+ && python3.7 setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
@@ -109,7 +109,6 @@ RUN apt-get install -y \
  && make clean \
  && make \
  && make install
-
 
 # Tree Inference
 RUN apt-get install -y phyml \
