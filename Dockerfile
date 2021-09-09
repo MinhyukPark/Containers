@@ -45,6 +45,45 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && python3.7 -m pip install click \
  && python3.7 -m pip install --upgrade setuptools
 
+# Sequence Alignment
+RUN apt-get install -y \
+ && cd /opt \
+ && mkdir /opt/pasta-upp-env \
+ && cd /opt/pasta-upp-env \
+ && export PATH="/opt/pasta-code/pasta/:${PATH}" \
+ && python3.7 -m venv --system-site-packages env \
+ && . env/bin/activate \
+ && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install setuptools \
+ && mkdir /opt/pasta-code \
+ && cd /opt/pasta-code \
+ && git clone https://github.com/smirarab/pasta.git \
+ && git clone https://github.com/smirarab/sate-tools-linux.git \
+ && cd pasta \
+ && python3.7 setup.py develop -c \
+ && cd /opt/ \
+ && git clone https://github.com/gillichu/sepp.git \
+ && cd sepp \
+ && python3.7 setup.py config -c \
+ && python3.7 setup.py install -c \
+ && python3.7 setup.py upp -c \
+ && deactivate \
+ && cd /opt/ \
+ && git clone https://github.com/scapella/trimal.git \
+ && cd /opt/trimal/source \
+ && make \
+ && chmod +x ./trimal \
+ && ln -s /opt/trimal/source/trimal /usr/bin/trimal \
+ && mkdir /opt/mafft \
+ && cd /opt/mafft \
+ && wget "https://mafft.cbrc.jp/alignment/software/mafft-7.487-with-extensions-src.tgz" \
+ && tar -xzf ./mafft-7.487-with-extensions-src.tgz \
+ && cd ./mafft-7.487-with-extensions/core/ \
+ && make clean \
+ && make \
+ && make install
+
+
 # quick scripts
 RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
@@ -69,46 +108,6 @@ RUN apt-get install -y indelible \
  && tar -xzf ./SimPhy_1.0.2.tar.gz \
  && chmod +x ./SimPhy_1.0.2/bin/simphy_lnx64 \
  && ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy
-
-# Sequence Alignment
-RUN apt-get install -y \
- && cd /opt \
- && mkdir /opt/pasta-code \
- && cd /opt/pasta-code \
- && python3.7 -m venv --system-site-packages env \
- && . env/bin/activate \
- && python3.7 -m pip install dendropy \
- && python3.7 -m pip install setuptools \
- && git clone https://github.com/smirarab/pasta.git \
- && git clone https://github.com/smirarab/sate-tools-linux.git \
- && cd pasta \
- && python3.7 setup.py develop \
- && deactivate \
- && export PATH="/opt/pasta-code/pasta:${PATH}" \
- && cd /opt/ \
- && git clone https://github.com/gillichu/sepp.git \
- && cd sepp \
- && python3.7 -m venv --system-site-packages env \
- && . env/bin/activate \
- && pip3 install dendropy \
- && python3.7 setup.py config -c \
- && python3.7 setup.py install \
- && python3.7 setup.py upp -c \
- && deactivate \
- && cd /opt/ \
- && git clone https://github.com/scapella/trimal.git \
- && cd /opt/trimal/source \
- && make \
- && chmod +x ./trimal \
- && ln -s /opt/trimal/source/trimal /usr/bin/trimal \
- && mkdir /opt/mafft \
- && cd /opt/mafft \
- && wget "https://mafft.cbrc.jp/alignment/software/mafft-7.487-with-extensions-src.tgz" \
- && tar -xzf ./mafft-7.487-with-extensions-src.tgz \
- && cd ./mafft-7.487-with-extensions/core/ \
- && make clean \
- && make \
- && make install
 
 # Tree Inference
 RUN apt-get install -y phyml \
