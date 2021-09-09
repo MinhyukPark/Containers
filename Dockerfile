@@ -56,7 +56,7 @@ RUN apt-get install -y \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
- && python3.7 ./setup.py develop \
+ && python3.7 setup.py develop \
  && deactivate \
  && export PATH=$PATH:/opt/pasta-code/pasta \
  && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
@@ -66,9 +66,10 @@ RUN apt-get install -y \
  && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
  && python3.7 -m pip install dendropy \
- && python3.7 ./setup.py config -c \
- && python3.7 ./setup.py install \
- && python3.7 ./setup.py upp -c \
+ && python3.7 -m pip install pyhmmer-sepp \
+ && python3.7 setup.py config -c \
+ && python3.7 setup.py install \
+ && python3.7 setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
