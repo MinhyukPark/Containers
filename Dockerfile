@@ -30,45 +30,46 @@ RUN add-apt-repository ppa:deadsnakes/ppa \
  && apt-get -y update \
  && apt-get install -y python2.7 \
  && apt-get install -y python-pip \
- && apt-get install -y python3.6 \
+ && apt-get install -y python3.7 \
  && apt-get install -y python3-pip \
  && apt-get install -y python3-setuptools \
- && apt-get install -y python3.6-tk \
- && apt-get install -y python3.6-venv \
- && apt-get install -y python3.6-dev \
- && apt-get install -y python3.6-distutils \
+ && apt-get install -y python3.7-tk \
+ && apt-get install -y python3.7-venv \
+ && apt-get install -y python3.7-dev \
+ && apt-get install -y python3.7-distutils \
  && python2.7 -m pip install --upgrade 'pip==20.3.4' \
- && python3.6 -m pip install --upgrade pip \
+ && python3.7 -m pip install --upgrade pip \
  && python2.7 -m pip install virtualenv \
- && python3.6 -m pip install virtualenv \
+ && python3.7 -m pip install virtualenv \
  && python2.7 -m pip install click \
- && python3.6 -m pip install click \
- && python3.6 -m pip install --upgrade setuptools
+ && python3.7 -m pip install click \
+ && python3.7 -m pip install --upgrade setuptools
 
 # Sequence Alignment
 RUN apt-get install -y \
  && cd /opt \
  && mkdir /opt/pasta-code \
  && cd /opt/pasta-code \
- && python3.6 -m venv --system-site-packages env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && python3.6 -m pip install dendropy \
+ && python3.7 -m pip install dendropy \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
  && cd pasta \
- && python3.6 setup.py develop \
+ && python3.7 setup.py develop \
  && deactivate \
  && export PATH=$PATH:/opt/pasta-code/pasta \
  && export PYTHONPATH=$PYTHONPATH:/opt/pasta-code/pasta \
  && cd /opt/ \
  && git clone https://github.com/gillichu/sepp.git \
  && cd sepp \
- && python3.6 -m venv --system-site-packages env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && python3.6 -m pip install dendropy \
- && python3.6 setup.py config -c \
- && python3.6 setup.py install \
- && python3.6 setup.py upp -c \
+ && python3.7 -m pip install --upgrade pip wheel setuptools \
+ && python3.7 -m pip install dendropy \
+ && python3.7 setup.py config -c \
+ && python3.7 setup.py install \
+ && python3.7 setup.py upp -c \
  && deactivate \
  && cd /opt/ \
  && git clone https://github.com/scapella/trimal.git \
@@ -90,16 +91,16 @@ RUN apt-get install -y \
 RUN cd /opt/ \
  && git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git" \
  && cd /opt/QuickScripts \
- && python3.6 -m venv --system-site-packages env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && python3.6 -m pip install pip==18.1 \
- && python3.6 -m pip install dendropy \
- && python3.6 -m pip install numpy \
- && python3.6 -m pip install treeswift \
- && python3.6 -m pip install pyvolve \
- && python3.6 -m pip install scipy \
- && python3.6 -m pip install scikit-learn \
- && python3.6 -m pip install scikit-bio \
+ && python3.7 -m pip install pip==18.1 \
+ && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install numpy \
+ && python3.7 -m pip install treeswift \
+ && python3.7 -m pip install pyvolve \
+ && python3.7 -m pip install scipy \
+ && python3.7 -m pip install scikit-learn \
+ && python3.7 -m pip install scikit-bio \
  && deactivate
 
 # Simulators
@@ -182,10 +183,10 @@ RUN cd /opt/ \
 RUN cd /opt/ \
  && git clone "https://github.com/vlasmirnov/GTM.git" \
  && cd /opt/GTM \
- && python3.6 -m venv --system-site-packages env \
+ && python3.7 -m venv --system-site-packages env \
  && . env/bin/activate \
- && python3.6 -m pip install dendropy \
- && python3.6 -m pip install argparse \
+ && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install argparse \
  && deactivate
 
 # Tree Comparison
