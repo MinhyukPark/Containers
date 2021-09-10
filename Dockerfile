@@ -57,6 +57,7 @@ RUN mkdir /opt/siavash-code \
  && python3.7 -m pip install --upgrade wheel \
  && python3.7 -m pip install --upgrade setuptools \
  && python3.7 -m pip install dendropy \
+ && python3.7 -m pip install numpy \
  && git clone https://github.com/gillichu/sepp.git \
  && git clone https://github.com/smirarab/pasta.git \
  && git clone https://github.com/smirarab/sate-tools-linux.git \
