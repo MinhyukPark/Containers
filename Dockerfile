@@ -98,7 +98,7 @@ RUN mkdir /opt/siavash-code \
  && cd /opt/t-coffee \
  && wget "http://www.tcoffee.org/Packages/Stable/Latest/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz" \
  && tar -xzf ./T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz \
- && ln -s /opt/t-coffee/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64/bin/t_coffee \usr/bin/t_coffee
+ && ln -s /opt/t-coffee/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64/bin/t_coffee /usr/bin/t_coffee
 
 
 # quick scripts
