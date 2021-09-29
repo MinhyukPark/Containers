@@ -83,7 +83,22 @@ RUN mkdir /opt/siavash-code \
  && cd ./mafft-7.487-with-extensions/core/ \
  && make clean \
  && make \
- && make install
+ && make install \
+ && mkdir /opt/clustalomega \
+ && cd /opt/clustalomega \
+ && wget "http://www.clustal.org/omega/clustalo-1.2.4-Ubuntu-x86_64" \
+ && chmod +x /opt/clustalomega/clustalo-1.2.4-Ubuntu-x86_64 \
+ && ln -s /opt/clustalomega/clustalo-1.2.4-Ubuntu-x86_64 /usr/bin/clustalo \
+ && mkdir /opt/muscle \
+ && cd /opt/muscle \
+ && wget "https://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz" \
+ && tar -xzf ./muscle3.8.31_i86linux64.tar.gz \
+ && ln -s /opt/muscle/muscle3.8.31_i86linux64 /usr/bin/muscle \
+ && mkdir /opt/t-coffee \
+ && cd /opt/t-coffee \
+ && wget "http://www.tcoffee.org/Packages/Stable/Latest/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz" \
+ && tar -xzf ./T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz \
+ && ln -s /opt/t-coffee/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64/bin/t_coffee
 
 
 # quick scripts
