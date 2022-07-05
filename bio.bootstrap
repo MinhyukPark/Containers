@@ -45,6 +45,10 @@ From: ubuntu:18.04
     apt-get install -y default-jdk
     apt-get install -y mpi-default-bin
     apt-get install -y mpi-default-dev
+    apt-get install -y bison
+    apt-get install -y flex
+    apt-get install -y libtool
+    apt-get install -y autotools-dev
     apt-get clean
 
     # CRAN repo
@@ -87,8 +91,9 @@ From: ubuntu:18.04
     pip3 install scipy
     pip3 install scikit-learn
     pip3 install scikit-bio
+    pip3 install biopython
     pip3 install pyhmmer-sepp
-    pip3 install pyvolve # sequence evolution simulator
+    # pip3 install pyvolve # sequence evolution simulator
     pip3 install pytest
     deactivate
 
@@ -182,6 +187,12 @@ From: ubuntu:18.04
     python setup.py upp -c
     deactivate
 
+    ## t-coffee
+    mkdir /opt/t_coffee
+    cd /opt/t_coffee
+    wget "https://tcoffee.org/Packages/Stable/Latest/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz"
+    tar -xzvf ./T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz
+    ln -s /opt/t_coffee/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64/bin/t_coffee /usr/bin/t_coffee
 
     # tree inference
     ## phyml
@@ -197,7 +208,17 @@ From: ubuntu:18.04
     cd /opt/fasttree
     wget "http://www.microbesonline.org/fasttree/FastTreeMP"
     chmod +x ./FastTreeMP
-    ln -s /opt/fasttree/FastTreeMP /usr/bin/fasttree
+    wget "http://www.microbesonline.org/fasttree/FastTree.c"
+    gcc -DUSE_DOUBLE -DOPENMP -fopenmp -O3 -finline-functions -funroll-loops -Wall -o FastTreeDoubleMP FastTree.c -lm
+    ln -s /opt/fasttree/FastTreeDoubleMP /usr/bin/fasttree
+    ln -s /opt/fasttree/FastTreeDoubleMP /usr/bin/FastTreeDoubleMP
+    ## veryfasttree
+    cd /opt/
+    git clone "https://github.com/citiususc/veryfasttree.git"
+    cd /opt/veryfasttree
+    cmake .
+    ln -s /opt/veryfasttree/VeryFastTree /usr/bin/VeryFastTree
+
 
     ## PAUP*
     mkdir /opt/paup
@@ -250,6 +271,23 @@ From: ubuntu:18.04
     chmod +x /opt/clustalomega/clustalo-1.2.4-Ubuntu-x86_64
     ln -s /opt/clustalomega/clustalo-1.2.4-Ubuntu-x86_64 /usr/bin/clustalo
 
+    # Phylogenetic Placement
+    ## EPA-ng
+    cd /opt/
+    git clone https://github.com/Pbdas/epa-ng.git
+    cd /opt/epa-ng
+    make
+    chmod +x /opt/epa-ng/bin/epa-ng
+    ln -s /opt/epa-ng/bin/epa-ng /usr/bin/epa-ng
+    ## gappa
+    cd /opt/
+    git clone --recursive https://github.com/lczech/gappa.git
+    cd /opt/gappa
+    make
+    chmod +x /opt/gappa/bin/gappa
+    ln -s /opt/gappa/bin/gappa /usr/bin/gappa
+
+
     # Disjoint Tree Mergers
     ## TreeMerge
     cd /opt/
@@ -289,6 +327,7 @@ From: ubuntu:18.04
     #rm -r __MACOSX
     #mv tools/* ./
     #rm -r tools
+
 
     ## Siavash's tools from statistical binning
     cd /opt/
@@ -349,6 +388,12 @@ From: ubuntu:18.04
 
     echo -n "mcl was installed to: "
     which mcl || echo "ERROR: Please check the installation for mcl"
+
+    echo -n "epa-ng was installed to: "
+    which epa-ng || echo "ERROR: Please check the installation for epa-ng"
+
+    echo -n "gappa was installed to: "
+    which gappa || echo "ERROR: Please check the installation for gappa"
 
     echo -n "TreeMerge was installed to: "
     (test -f /opt/treemerge/python/treemerge.py && echo "/opt/treemerge/python/treemerge.py" )|| echo "ERROR: Please check the installation for TreeMerge"
