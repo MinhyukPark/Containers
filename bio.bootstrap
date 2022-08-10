@@ -70,6 +70,11 @@ From: ubuntu:18.04
     apt-get install -y python3-sphinx
     apt-get clean
 
+    apt-get install -y python3.7
+    apt-get install -y python3.7-venv
+    apt-get install -y python3.7-dev
+    apt-get clean
+
     pip install virtualenv
     pip3 install virtualenv
 
@@ -125,6 +130,18 @@ From: ubuntu:18.04
     ln -s /opt/simphy/SimPhy_1.0.2/bin/simphy_lnx64 /usr/bin/simphy
 
     # Sequence Alignment
+    ## WITCH
+    cd /opt/
+    git clone https://github.com/c5shen/WITCH.git
+    cd WITCH
+    # git checkout new_experimental_gcm
+    python3.7 -m venv --system-site-packages env
+    . env/bin/activate
+    pip3 install Cython
+    pip3 install -r requirements.txt
+    python3.7 setup.py
+    deactivate
+
     ## MAFFT
     mkdir /opt/mafft
     cd /opt/mafft
@@ -187,12 +204,15 @@ From: ubuntu:18.04
     python setup.py upp -c
     deactivate
 
+
+
+
     ## t-coffee
-    mkdir /opt/t_coffee
-    cd /opt/t_coffee
-    wget "https://tcoffee.org/Packages/Stable/Latest/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz"
-    tar -xzvf ./T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz
-    ln -s /opt/t_coffee/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64/bin/t_coffee /usr/bin/t_coffee
+    #mkdir /opt/t_coffee
+    #cd /opt/t_coffee
+    #wget "https://tcoffee.org/Packages/Stable/Latest/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz"
+    #tar -xzvf ./T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz
+    #ln -s /opt/t_coffee/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64/bin/t_coffee /usr/bin/t_coffee
 
     # tree inference
     ## phyml
