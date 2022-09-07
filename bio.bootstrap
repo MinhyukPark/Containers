@@ -84,7 +84,7 @@ From: ubuntu:18.04
     pip3 install sphinx-click
 
     cd /opt/
-    git clone "https://git.minhyukpark.com/MinhyukPark/QuickScripts.git"
+    git clone "https://github.com/MinhyukPark/QuickScripts.git"
     cd /opt/QuickScripts
     python3 -m venv --system-site-packages env
     . env/bin/activate
@@ -151,6 +151,10 @@ From: ubuntu:18.04
     make clean
     make
     make install
+    cd /opt/mafft/mafft-7.487-with-extensions/extensions/
+    make clean
+    make
+    make install
 
 
     ## HH-suite
@@ -208,11 +212,11 @@ From: ubuntu:18.04
 
 
     ## t-coffee
-    #mkdir /opt/t_coffee
-    #cd /opt/t_coffee
-    #wget "https://tcoffee.org/Packages/Stable/Latest/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz"
-    #tar -xzvf ./T-COFFEE_installer_Version_13.45.0.4846264_linux_x64.tar.gz
-    #ln -s /opt/t_coffee/T-COFFEE_installer_Version_13.45.0.4846264_linux_x64/bin/t_coffee /usr/bin/t_coffee
+    mkdir /opt/t_coffee
+    cd /opt/t_coffee
+    wget "https://s3.eu-central-1.amazonaws.com/tcoffee-packages/Stable/Latest/T-COFFEE_distribution_Version_13.45.0.4846264.tar.gz"
+    tar -xzvf ./T-COFFEE_distribution_Version_13.45.0.4846264.tar.gz
+    ln -s /opt/t_coffee/T-COFFEE_distribution_Version_13.45.0.4846264/bin/t_coffee /usr/bin/t_coffee
 
     # tree inference
     ## phyml
@@ -269,7 +273,22 @@ From: ubuntu:18.04
     tar -xjf ./RAxML-7.2.4.tar.bz2
     cd RAxML-7.2.4
     make -f Makefile.SSE3.PTHREADS.gcc
-    ln -s raxmlHPC-PTHREADS-SSE3 /usr/bin/raxml-7.2.4
+    ln -s /opt/raxml_7_2_4/RAxML-7.2.4/raxmlHPC-PTHREADS-SSE3 /usr/bin/raxml-pthreads-sse3-7.2.4
+    rm *.o
+    make -f Makefile.SSE3.gcc
+    ln -s /opt/raxml_7_2_4/RAxML-7.2.4/raxmlHPC-SSE3 /usr/bin/raxml-sse3-7.2.4
+
+    ## raxml8.2.12
+    mkdir /opt/raxml_8_2_12
+    cd /opt/raxml_8_2_12
+    wget "https://github.com/stamatak/standard-RAxML/archive/refs/tags/v8.2.12.tar.gz"
+    tar -xzvf ./v8.2.12.tar.gz
+    cd standard-RAxML-8.2.12
+    make -f Makefile.SSE3.PTHREADS.gcc
+    ln -s /opt/raxml_8_2_12/standard-RAxML-8.2.12/raxmlHPC-PTHREADS-SSE3 /usr/bin/raxml-pthreads-sse3-8.2.12
+    rm *.o
+    make -f Makefile.SSE3.gcc
+    ln -s /opt/raxml_8_2_12/standard-RAxML-8.2.12/raxmlHPC-SSE3 /usr/bin/raxml-sse3-8.2.12
 
     ## iqtree
     mkdir /opt/iqtree
