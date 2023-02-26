@@ -26,6 +26,15 @@ From: ubuntu:18.04
     apt-get install -y software-properties-common
     apt-get install -y time
 
+
+    # for cmake
+    # why doesn't this work
+    # apt-get install -y lsb-release
+    # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6AF7F09730B3F0A4
+    # wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null
+    # echo 'deb [trusted=yes] https://apt.kitware.com/ubuntu/ bionic main' | tee /etc/apt/sources.list.d/kitware.list >/dev/null
+    # apt-get -y update
+
     # build tools
     apt-get install -y build-essential
     apt-get install -y gcc-8
@@ -49,6 +58,10 @@ From: ubuntu:18.04
     apt-get install -y flex
     apt-get install -y libtool
     apt-get install -y autotools-dev
+    apt-get install -y libffi-dev
+    apt-get install -y libssl1.0.0
+    apt-get install -y libssl-dev
+    apt-get install -y curl
     apt-get clean
 
     # CRAN repo
@@ -58,6 +71,10 @@ From: ubuntu:18.04
     apt-get install -y r-base
     echo "install.packages(\"sirt\", repos=\"https://cran.rstudio.com\")" | R --no-save
     apt-get clean
+
+    # for python3.9
+    add-apt-repository ppa:deadsnakes/ppa
+    apt-get update
 
     # python packages
     apt-get install -y python-pip
@@ -75,6 +92,10 @@ From: ubuntu:18.04
     apt-get install -y python3.7-dev
     apt-get clean
 
+    apt-get install -y python3.9
+    apt-get install -y python3.9-venv
+    apt-get install -y python3.9-dev
+
     pip install virtualenv
     pip3 install virtualenv
 
@@ -84,10 +105,9 @@ From: ubuntu:18.04
     pip3 install sphinx-click
 
     cd /opt/
-    git clone "https://github.com/MinhyukPark/QuickScripts.git"
-    cd /opt/QuickScripts
-    python3 -m venv --system-site-packages env
+    python3.9 -m venv env
     . env/bin/activate
+    pip3 install click
     pip3 install dendropy
     pip3 install matplotlib
     pip3 install numpy
@@ -98,6 +118,29 @@ From: ubuntu:18.04
     pip3 install scikit-bio
     pip3 install biopython
     pip3 install pyhmmer-sepp
+    pip3 install pytest
+    pip3 install pathos
+    pip3 install memray
+    deactivate
+
+
+    cd /opt/
+    git clone "https://github.com/MinhyukPark/QuickScripts.git"
+    cd /opt/QuickScripts
+    python3.9 -m venv env
+    . env/bin/activate
+    pip3 install click
+    pip3 install dendropy
+    pip3 install matplotlib
+    pip3 install numpy
+    pip3 install treeswift
+    pip3 install Cython
+    pip3 install scipy
+    pip3 install scikit-learn
+    pip3 install scikit-bio
+    pip3 install biopython
+    pip3 install pyhmmer-sepp
+    pip3 install pathos
     # pip3 install pyvolve # sequence evolution simulator
     pip3 install pytest
     deactivate
@@ -186,8 +229,9 @@ From: ubuntu:18.04
     cd /opt/pasta-code
     git clone https://github.com/smirarab/pasta.git
     git clone https://github.com/smirarab/sate-tools-linux.git
-    python3 -m venv --system-site-packages env
+    python3.9 -m venv env
     . env/bin/activate
+    pip3 install click
     pip3 install dendropy
     cd pasta
     python setup.py develop
@@ -199,8 +243,9 @@ From: ubuntu:18.04
     git clone https://github.com/smirarab/sepp.git
     # git clone https://github.com/MinhyukPark/sepp.git
     cd sepp
-    python3 -m venv --system-site-packages env
+    python3.9 -m venv env
     . env/bin/activate
+    pip3 install click
     pip3 install dendropy
     pip3 install pyhmmer-sepp
     python setup.py config -c
@@ -319,12 +364,12 @@ From: ubuntu:18.04
     chmod +x /opt/epa-ng/bin/epa-ng
     ln -s /opt/epa-ng/bin/epa-ng /usr/bin/epa-ng
     ## gappa
-    cd /opt/
-    git clone --recursive https://github.com/lczech/gappa.git
-    cd /opt/gappa
-    make
-    chmod +x /opt/gappa/bin/gappa
-    ln -s /opt/gappa/bin/gappa /usr/bin/gappa
+    # cd /opt/
+    # git clone --recursive https://github.com/lczech/gappa.git
+    # cd /opt/gappa
+    # make
+    # chmod +x /opt/gappa/bin/gappa
+    # ln -s /opt/gappa/bin/gappa /usr/bin/gappa
 
 
     # Disjoint Tree Mergers
@@ -343,8 +388,9 @@ From: ubuntu:18.04
     cd /opt/
     git clone "https://github.com/vlasmirnov/GTM.git"
     cd /opt/GTM
-    python3 -m venv --system-site-packages env
+    python3.9 -m venv env
     . env/bin/activate
+    pip3 install click
     pip3 install dendropy
     pip3 install argparse
     deactivate
