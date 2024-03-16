@@ -1,5 +1,5 @@
 Bootstrap: docker
-From: ubuntu:18.04
+From: ubuntu:20.04
 
 %environment
     TZ=America/Chicago
@@ -59,25 +59,38 @@ From: ubuntu:18.04
     apt-get install -y libtool
     apt-get install -y autotools-dev
     apt-get install -y libffi-dev
-    apt-get install -y libssl1.0.0
+    apt-get install -y libssl1.1
     apt-get install -y libssl-dev
     apt-get install -y curl
+    apt-get install -y libboost-python-dev
+    apt-get install -y libpython3.9-dev
     apt-get clean
 
     # CRAN repo
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-    add-apt-repository -y 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/'
-    apt-get -y update
+    #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+    #add-apt-repository -y 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/'
+    #apt-get -y update
     apt-get install -y r-base
     echo "install.packages(\"sirt\", repos=\"https://cran.rstudio.com\")" | R --no-save
+    echo "install.packages(\"data.table\", repos=\"https://cran.rstudio.com\")" | R --no-save
+    echo "install.packages(\"feather\", repos=\"https://cran.rstudio.com\")" | R --no-save
     apt-get clean
 
-    # for python3.9
+    # for python3.9 (3.7 now)
     add-apt-repository ppa:deadsnakes/ppa
     apt-get update
 
+    # graph-tool just in case
+    #add-apt-repository -y 'deb [trusted=yes] https://deb.debian.org/debian experimental main'
+    echo 'deb [trusted=yes] https://downloads.skewed.de/apt focal main' | tee /etc/apt/sources.list.d/deb_graph_tools.list >/dev/null
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-key 612DEFB798507F25
+    apt-get update
+    apt-get install -y python3-graph-tool
+
     # python packages
-    apt-get install -y python-pip
+    apt-get install -y virtualenv
+    apt-get install -y python2.7
+    apt-get install -y python2.7-dev
     apt-get install -y python-tk
     apt-get install -y libpython2.7
 
@@ -148,9 +161,11 @@ From: ubuntu:18.04
     # hmms
     mkdir /opt/hmmer
     cd /opt/hmmer
-    wget "http://eddylab.org/software/hmmer/hmmer.tar.gz"
-    tar xf hmmer.tar.gz
+    #wget "http://eddylab.org/software/hmmer/hmmer.tar.gz"
+    wget "http://eddylab.org/software/hmmer/hmmer-3.3.2.tar.gz"
+    tar xf hmmer-3.3.2.tar.gz
     cd hmmer-3.3.2
+    #cd hmmer-3.4
     ./configure
     make
     make install
@@ -182,7 +197,7 @@ From: ubuntu:18.04
     . env/bin/activate
     pip3 install Cython
     pip3 install -r requirements.txt
-    python3.7 setup.py
+    python3.7 setup.py config -c
     deactivate
 
     ## MAFFT
@@ -234,7 +249,7 @@ From: ubuntu:18.04
     pip3 install click
     pip3 install dendropy
     cd pasta
-    python setup.py develop
+    python3.9 setup.py develop
     deactivate
     export PATH=$PATH:/opt/pasta-code/pasta
 
@@ -248,9 +263,9 @@ From: ubuntu:18.04
     pip3 install click
     pip3 install dendropy
     pip3 install pyhmmer-sepp
-    python setup.py config -c
-    python setup.py install
-    python setup.py upp -c
+    python3.9 setup.py config -c
+    python3.9 setup.py install
+    python3.9 setup.py upp -c
     deactivate
 
 
@@ -259,9 +274,9 @@ From: ubuntu:18.04
     ## t-coffee
     mkdir /opt/t_coffee
     cd /opt/t_coffee
-    wget "https://s3.eu-central-1.amazonaws.com/tcoffee-packages/Stable/Latest/T-COFFEE_distribution_Version_13.45.0.4846264.tar.gz"
-    tar -xzvf ./T-COFFEE_distribution_Version_13.45.0.4846264.tar.gz
-    ln -s /opt/t_coffee/T-COFFEE_distribution_Version_13.45.0.4846264/bin/t_coffee /usr/bin/t_coffee
+    wget "https://s3.eu-central-1.amazonaws.com/tcoffee-packages/Stable/Latest/T-COFFEE_distribution_Version_13.46.0.919e8c6b.tar.gz"
+    tar -xzvf ./T-COFFEE_distribution_Version_13.46.0.919e8c6b.tar.gz
+    ln -s /opt/t_coffee/T-COFFEE_distribution_Version_13.46.0.919e8c6b/bin/t_coffee /usr/bin/t_coffee
 
     # tree inference
     ## phyml
@@ -377,7 +392,7 @@ From: ubuntu:18.04
     cd /opt/
     git clone "https://github.com/ekmolloy/treemerge.git"
     cd /opt/treemerge
-    python -m virtualenv --system-site-packages env
+    virtualenv --python=$(which python2.7) --system-site-packages env
     . env/bin/activate
     pip install 'networkx==1.11'
     pip install 'dendropy==4.3.0'
@@ -418,7 +433,7 @@ From: ubuntu:18.04
     cd /opt/
     git clone "https://github.com/smirarab/binning.git"
     cd binning
-    python -m virtualenv --system-site-packages env
+    virtualenv --python=$(which python2.7) --system-site-packages env
     . env/bin/activate
     pip install 'dendropy==3.12.2'
     pip install numpy
